@@ -52,6 +52,8 @@ gh release create "v$release_version" \
 
 本仓库目前是本地提示词创作技能，没有收费后端。正式上架前需要明确收费单位、价格、模型服务和部署位置，再实现并测试支付与业务交付。后端、密钥和订单状态不放入技能 ZIP；现有提示词评测不能作为支付链路已通过的证据。平台提交成功也不等于审核通过或已上架。
 
+已确认需要新建后端，实施范围与官方协议差异见 [Pay Skill 接入草案](pay-service.md)。
+
 ## 依据与取舍
 
 - [Agent Skills 规范](https://agentskills.io/specification)：目录结构和可选 metadata。版本在发布层管理是本项目选择，不是规范强制要求。
