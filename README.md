@@ -69,6 +69,16 @@ python3 scripts/check-evals.py evals/results/2026-11-02
 
 该命令检查结果完整性、文件摘要和独立评审结论，不会重新调用模型。重新运行模型需按评测流程创建新会话。通过这些案例只说明本次抽样行为符合要求，不证明后续研究结论正确。
 
+## 版本与发布
+
+版本号以 [VERSION](VERSION) 为准，变化记录在 [CHANGELOG.md](CHANGELOG.md)。仓库使用 SemVer、带注释的 `vX.Y.Z` 标签和 GitHub Releases；发布包只包含 skill 文件，并附 SHA-256 摘要。
+
+```sh
+python3 scripts/build-release.py --evals evals/results/2026-11-02
+```
+
+发布与升级步骤见 [版本管理说明](docs/releasing.md)。当前源码基线尚未接入支付宝收费 API，不能作为 Pay Skill 直接提交；普通提示词评测通过不表示支付能力就绪。
+
 ## 项目文件
 
 仓库文档与可独立安装的 skill 分开维护：
@@ -76,9 +86,12 @@ python3 scripts/check-evals.py evals/results/2026-11-02
 ```text
 grill-my-research/
 ├── README.md
+├── VERSION
+├── CHANGELOG.md
 ├── .gitignore
 ├── docs/
-│   └── migration.md
+│   ├── migration.md
+│   └── releasing.md
 ├── evals/
 │   ├── README.md
 │   ├── cases.json
@@ -87,7 +100,9 @@ grill-my-research/
 │   └── results/
 ├── scripts/
 │   ├── check-evals.py
-│   └── test-evals.py
+│   ├── build-release.py
+│   ├── test-evals.py
+│   └── test-release.py
 └── skills/
     └── grill-my-research/
         ├── SKILL.md
