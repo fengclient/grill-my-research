@@ -50,13 +50,4 @@ gh release create "v$release_version" \
 
 版本机制不等于支付接入。根据 [SkillHub 个人接入指南](https://skillhub.cn/tutorials#alipay-pay)，Pay Skill 需要已注册的支付宝收费服务、公网 HTTPS 业务 API、付款凭证校验和结果交付。SkillHub 展示价、支付宝登记价和服务端账单价必须一致。
 
-本仓库目前是本地提示词创作技能，没有收费后端。正式上架前需要明确收费单位、价格、模型服务和部署位置，再实现并测试支付与业务交付。后端、密钥和订单状态不放入技能 ZIP；现有提示词评测不能作为支付链路已通过的证据。平台提交成功也不等于审核通过或已上架。
-
-已确认需要新建后端，实施范围与官方协议差异见 [Pay Skill 接入草案](pay-service.md)。
-
-## 依据与取舍
-
-- [Agent Skills 规范](https://agentskills.io/specification)：目录结构和可选 metadata。版本在发布层管理是本项目选择，不是规范强制要求。
-- [Superpowers 发布记录](https://github.com/obra/superpowers/releases)：参考版本标签与面向使用者的发布说明；不复制大型多客户端仓库的同步配置。
-- [Semantic Versioning](https://semver.org/)：兼容性和版本递增原则，以及已发布版本内容不再修改的要求。
-- [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)：独立维护变更记录，保留 Unreleased 与按日期排列的版本条目。
+本项目计划一次购买、永久使用所购版本。发布前验证首次验付与安装包交付、已购恢复和安装后重复使用。确定买断价后，表单标明一次付款对应的交付内容。完整方案见 [Pay Skill 买断交付草案](pay-service.md)。
