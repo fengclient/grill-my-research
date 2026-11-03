@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grill My Research"
+  short_description: "通过关键追问澄清研究目标、范围与证据要求，生成通用的深度研究提示词"
+  default_prompt: "请使用 $grill-my-research 帮我澄清研究想法，指出关键盲点，并生成可直接使用的 Deep Research 提示词。"

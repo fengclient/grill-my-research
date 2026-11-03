@@ -1,0 +1,213 @@
+{
+  "models": [
+    "gpt-6-astra",
+    "gpt-6.1-sol",
+    "gpt-6-luna"
+  ],
+  "cases_sha256": "7ac08f1ff358a452576b592d60e4dda962eed17f90ad9b5bee5d2072d36ba838",
+  "rubric_sha256": "5c5bcd469d3fcdf4fa305572af10981f6430708e1a4ceb4c1c15b6dbf9c5d205",
+  "skill_sha256": {
+    "SKILL.md": "c16f1fc22def517f5919ee4896b2654813d1678aede5c913b60f93922b221e7a",
+    "agents/openai.yaml": "12c48059ed36a59d97398c81292310a230340c7820bf0491fb340022629921de",
+    "references/examples.md": "645fc47cf65679600093009d0fd6967cdceb4faababf87453264cee328ae129e",
+    "references/prompt-template.md": "4bfc4ac660cc136376cc0e5f3396d93b1c916914e17530d10cdac66b86889241",
+    "references/research-brief.md": "11c9810e07dafc96b31d7c28cccb525a6ed5812718eaf68bf30594197bb41c9f"
+  },
+  "plan_sha256": "263c827a50ae8d3b801f46dcbb33bb295df30be221b02875a131b95c2414c833",
+  "manual_review": "complete",
+  "runs": [
+    {
+      "label": "rb9500476",
+      "case_id": "learning",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/rb9500476.md",
+      "output_sha256": "628ed2710c6241fa86306fa3205362f2ba8b57c976909dbd7f8c699a280bd4aa",
+      "trace": "traces/rb9500476.json",
+      "trace_sha256": "89da8dc93a8d72c6f0eca1a5c2a0ddba6d2fee2fc6f54b6f03e020f740ddd77e"
+    },
+    {
+      "label": "r3f3a1f56",
+      "case_id": "learning",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r3f3a1f56.md",
+      "output_sha256": "561150656b576e5420bb3d740e17daa319682cde6838f1e0031b2bf325480ab4",
+      "trace": "traces/r3f3a1f56.json",
+      "trace_sha256": "42a13541ac9fdcb6884eb92197a333e623ecf046be17d39ea161134b130d46ff"
+    },
+    {
+      "label": "rb1301ac3",
+      "case_id": "learning",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rb1301ac3.md",
+      "output_sha256": "4def791bc3bca012ecc6fb89c04493dfee6005a3e35de3f68367024cfe1c1b32",
+      "trace": "traces/rb1301ac3.json",
+      "trace_sha256": "f637b7348bf6d693a805b0d91a4907afd0964c2f1577f8d12a9168300f4f9405"
+    },
+    {
+      "label": "r14c96271",
+      "case_id": "history",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r14c96271.md",
+      "output_sha256": "8a57d9f450be0f0e61441359a6ca8b3e5823597a23c1638a4ea5ad67f36d681a",
+      "trace": "traces/r14c96271.json",
+      "trace_sha256": "455491211c62834b37126c3b1ada23f91b3999ea7ba7f966fe7959cd4c323d7b"
+    },
+    {
+      "label": "r6301e1ff",
+      "case_id": "history",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r6301e1ff.md",
+      "output_sha256": "135fc219711df9565fc46ad618c01303e4b62651f1600f8338bf63ba927b24ea",
+      "trace": "traces/r6301e1ff.json",
+      "trace_sha256": "e17b8b0753e4c10b0abfa94378a263c29ee239c4a08f6151599d078b16c56db4"
+    },
+    {
+      "label": "rc6d50a8a",
+      "case_id": "history",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rc6d50a8a.md",
+      "output_sha256": "06dc8962eb336b84aae38a2d11727d8138b871f3a7b620134f4bf8d71506b13f",
+      "trace": "traces/rc6d50a8a.json",
+      "trace_sha256": "2ce0e8d4d341eba148e9ac28f3addc39020087e41fbeb9676d2966ec7ec534a5"
+    },
+    {
+      "label": "r2ac8cc6c",
+      "case_id": "workplace",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r2ac8cc6c.md",
+      "output_sha256": "b68b1d9f6baa465cf9aed8b75071dcd972faba72a20a3506f8b0f359321d0bad",
+      "trace": "traces/r2ac8cc6c.json",
+      "trace_sha256": "9abe8ed535bbc862bb3a5cc73daec80ba36b80f59f162841cf6d1db4f1498a9a"
+    },
+    {
+      "label": "r2a005a8a",
+      "case_id": "workplace",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r2a005a8a.md",
+      "output_sha256": "5649783a80d51e9098b3793156734210941cedd1c8bc98e3e732587b586ec5eb",
+      "trace": "traces/r2a005a8a.json",
+      "trace_sha256": "711600674e102cba40fece42f293319cc191c4d5dca38c5a8df8a6a0830a65a7"
+    },
+    {
+      "label": "r27e8f1b1",
+      "case_id": "workplace",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r27e8f1b1.md",
+      "output_sha256": "8028901196c7a825e94f76df60505598e1e6b41dfe1c4e5c5519d0ee5e681de8",
+      "trace": "traces/r27e8f1b1.json",
+      "trace_sha256": "ed81f9c78ac201be66fa6293e3ed5bfd8596fcda31b16ad1d946012b2798e1bd"
+    },
+    {
+      "label": "ref25abf9",
+      "case_id": "library",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/ref25abf9.md",
+      "output_sha256": "7155b8ea445c7915c7fee2a9cba9848731579d3175eabc0e345a2fd8a9b2a7b3",
+      "trace": "traces/ref25abf9.json",
+      "trace_sha256": "00226f73b2dd357ac45d76f1adc797756d1d2690f27e5e670b12af2d1d5fcbbf"
+    },
+    {
+      "label": "rd1feeaca",
+      "case_id": "library",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/rd1feeaca.md",
+      "output_sha256": "6a6201e7e30584ad4b704a7cdaba7bb157294c204344282d38b9e29d80a2c6dd",
+      "trace": "traces/rd1feeaca.json",
+      "trace_sha256": "c9a91117f2fc2e6d55abbe5c42dc9ffd54b57f4d05d1323000432009d7080adf"
+    },
+    {
+      "label": "rfb8172fb",
+      "case_id": "library",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rfb8172fb.md",
+      "output_sha256": "5b5a1dbeaff6a60e94b2c6eb3fc936efb24a9d1f4e0315571d4c43efd1e24619",
+      "trace": "traces/rfb8172fb.json",
+      "trace_sha256": "502c0ca22535d6b16a9ae08540431ce2d867da70f08b65f3e93534b31ca95d3b"
+    },
+    {
+      "label": "rd9cc62df",
+      "case_id": "revision",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/rd9cc62df.md",
+      "output_sha256": "8919420b457d8448d031f88d7e9b12c7453956967ddf47411852bba4434e1a3c",
+      "trace": "traces/rd9cc62df.json",
+      "trace_sha256": "b744808add0120cf4770d7ee81509e0d29e28ee7aad74b223bee2ad7b17664fc"
+    },
+    {
+      "label": "rdd08bca8",
+      "case_id": "revision",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/rdd08bca8.md",
+      "output_sha256": "395d62efc6b47cab23b137b8e98652026f5ab3c7b96f969530c11d9efadfa3e4",
+      "trace": "traces/rdd08bca8.json",
+      "trace_sha256": "2d6df7261beb8ecd83c7cef10c58e76c165185816cc3ce5d2f5fb586b5a72824"
+    },
+    {
+      "label": "r3facfdd6",
+      "case_id": "revision",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r3facfdd6.md",
+      "output_sha256": "8fff0998aee0bb4c45346d9d161ad452d149602702681ae03a4484b542e57ba8",
+      "trace": "traces/r3facfdd6.json",
+      "trace_sha256": "6dadde122313ec69953b18e274951e1c4b8c30a413e909896af4b1e1e00a9f3c"
+    },
+    {
+      "label": "r31c094f7",
+      "case_id": "selection",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r31c094f7.md",
+      "output_sha256": "885f246601817f9ffd974eb738636d30aa12b713b9fc87643ba022757478e464",
+      "trace": "traces/r31c094f7.json",
+      "trace_sha256": "c64851e26cc96e0f6e1c1b6dc5e2a8f935e6f17d7f09b3631df8723cbff0cba1"
+    },
+    {
+      "label": "re8064dc9",
+      "case_id": "selection",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/re8064dc9.md",
+      "output_sha256": "b2d8619df3f1bf789a61725334e58b9ed841bcc769df8bdc12ff6ac3c884e695",
+      "trace": "traces/re8064dc9.json",
+      "trace_sha256": "142687d5b743698143cd9f752d0e350326d6e534d1b1d7d09bc8669475bf1969"
+    },
+    {
+      "label": "r5bec237f",
+      "case_id": "selection",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r5bec237f.md",
+      "output_sha256": "d233d472b60f53aef94c7d2f46ea7570ee9f4c1ea6635d323112563320fcc43b",
+      "trace": "traces/r5bec237f.json",
+      "trace_sha256": "4213cd5ed9a4598d221d6c75ff2a1a8d994f4842f66fd680d3a36f40faa848f4"
+    }
+  ],
+  "negative_control": {
+    "label": "r0983dc27",
+    "case_id": "library",
+    "output": "outputs/r0983dc27.md",
+    "output_sha256": "0add2ee18c34c0eafbf16e5f6bd6dbc15389c865845adef519e32acb92207b7e"
+  },
+  "judge": {
+    "model": "gpt-6-astra",
+    "effort": "medium",
+    "blind": true,
+    "parent_family_check": "not available",
+    "runtime_log_sha256": "ec591995728d4dfb59c8b4ab1a53c8b0a9c3f181aab36df4fcf60446bd60ee6d"
+  }
+}

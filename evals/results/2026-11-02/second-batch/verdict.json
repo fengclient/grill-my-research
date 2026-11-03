@@ -1,0 +1,243 @@
+{
+  "reviews": [
+    {
+      "label": "r2785d7cb",
+      "case_id": "learning",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：原文“我不做培训产品，也不限定国家”，并聚焦成年人自主学习及个人阅读安排，保留用途。interaction：首轮问“你希望这次……主要帮你弄清什么”，收到用途后直接交付完整稿，无追加提问。autonomy：“围绕以下问题展开，并根据发现调整子问题”，方法与个人学习吻合，无配额、权重或规格问卷。usable：开头完整定义研究主题、目的和报告要求，并将未知个人条件处理为“可调整的示例”，无待填项。evidence：“关键结论提供可追溯的来源和链接，区分研究证据、理论解释与实践推断”，同时要求反证、竞争解释及短期实验的迁移局限。"
+    },
+    {
+      "label": "rc3924815",
+      "case_id": "selection",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：“研究范围严格限定为 A、B、C”，明确两条推荐要求“存在直接冲突”；两种口径确实互斥，第二条明确与排除条件“不相容”，没有改词假装同时满足。interaction：直接给完整提示词，没有追问。autonomy：比较维度贴合报名工作，不预设预算等条件，不加配额或权重。usable：分别交付“遵守排除约束”和“遵守指定结论”的条件结论，符合冲突任务允许互斥分支的标准；A/B/C 沿用用户标识，没有擅自编产品身份。evidence：要求“可追溯来源”“区分已核实事实、来源观点与研究者推断”，第二分支将推荐标注为用户指定，并明确“不得为支持预设结论而忽略反证”。"
+    },
+    {
+      "label": "rd3265844",
+      "case_id": "workplace",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：将问题改为“是否能提升……在什么条件下有效”，保留软件团队、管理层制度讨论用途及生产力、混杂因素、适用条件。interaction：直接给第一版，不问用户。autonomy：对总工时、质量、因果偏差的分析服务实际研究，没有强加任意指标阈值。usable：完整定义研究任务与中文管理层备忘录，明确未知公司信息不得假定。evidence：“关键结论提供可追溯来源，区分事实、推断与建议”，要求反证、选择偏差及因果限度，不伪造结果。"
+    },
+    {
+      "label": "ra8a14fcf",
+      "case_id": "library",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：明确“30 人设计事务所”“预算尚未确定”，完整保留“产品｜许可｜自托管方式｜权限粒度｜版本历史｜导入导出｜维护状态｜来源”，且“不增加打分权重或加权总分”。interaction：只给提示词，没有执行研究或提问。autonomy：保留用户八列，补充说明直接服务自托管选型，无任意规格。usable：部署定义、比较要求与输出形式完整，无待填项。evidence：要求“可追溯链接”“区分事实、厂商声称与研究推断”，处理反证、冲突和证据局限，不虚构产品。"
+    },
+    {
+      "label": "rc2522864",
+      "case_id": "revision",
+      "criteria": {
+        "intent": "fail",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：失败。虽然保留芬兰、日本、公立中学、培训设计及三个重点，并删除商业输出，但在“证据的发表或形成时间限定为 2023 年……至 2025 年”后主动增加“如引用更早材料解释制度背景，须明确标注其仅为背景”。用户限定的是证据时间，未授权时间外背景材料；把材料改称背景仍放宽了明确时间约束。interaction：直接完整重写，没有追问。autonomy：研究方法及培训输出贴题，没有问卷、权重或来源数量要求；时间例外归入 intent，不重复作为任意框架扣分。usable：新版可独立执行，没有待填项；其范围违规由 intent 记录。evidence：明确“关键判断提供来源和日期”“区分直接证据、作者解释与本研究推论”，处理相反发现、样本和因果局限，无编造。"
+    },
+    {
+      "label": "r73a6f367",
+      "case_id": "learning",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：首轮允许入门理解，终稿明确“不是在设计培训产品”“没有特定国家或地区的研究范围”，聚焦个人阅读与学习。interaction：只问主要用途，用户补充后立即给完整中文稿。autonomy：概念、策略及安排问题与用途吻合，未强加商业框架或规格问卷。usable：完整研究主题、目的与输出，未知时长和主题以可调整原则处理，无空缺变量。evidence：“关键结论提供可追溯的来源”，要求区分结果、解释与建议，并关注反证、冲突及方法局限。"
+    },
+    {
+      "label": "r3790c0f9",
+      "case_id": "history",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：保留“1870 至 1914 年间，欧洲城市公共图书馆为何兴起”、识字率、治理、阶层及反例，且“研究面向希望理解历史问题的普通读者，不需要商业建议”。中段将个人阅读也用作历史分析重点，表述稍有歧义，但全文仍覆盖机构兴起机制，并未替换主问题或丢掉明确约束。interaction：直接交付，无确认问题。autonomy：自主选取比较案例和历史材料，无固定来源数或商业指标。usable：完整中文研究指令，交代范围、问题及解释综述交付，无待填项。evidence：“关键事实和结论提供可追溯来源”，区分史料与解释，处理保存偏差、代表性及竞争解释。"
+    },
+    {
+      "label": "r62bedb36",
+      "case_id": "selection",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：明确封闭 A/B/C 范围与“无法兼容”的冲突；两分支分别“需要放宽”另一要求，是实际互斥条件，不是分栏同时满足。interaction：直接出稿并明确资料不足时“不向用户追问”。autonomy：以实际报名流程比较，条件分析规模与预算，不机械评分。usable：完整草稿，对无法识别 A/B/C 的材料缺口有明确执行限制，且“不合并为一个最终推荐”，符合冲突任务标准。evidence：要求来源、日期、区分承诺/使用证据/推断及反证；指定 C 不伪装为自然最优，发现不适用须报告。"
+    },
+    {
+      "label": "r53bf5c45",
+      "case_id": "history",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：完整保留历史时期、欧洲城市、普通读者个人阅读、三个可能解释与反例，无商业建议。interaction：直接中文提示词，无先行提问。autonomy：“请自主安排检索与报告结构”，不要求固定来源量或市场框架。usable：主题、范围、文章目的及交付要求均自包含。evidence：“关键结论附可追溯的来源”，区分事实、学者解释与推断；反例明确“只是查证方向，不是已知事实”，处理统计口径与资料偏差。"
+    },
+    {
+      "label": "rb93f188a",
+      "case_id": "workplace",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：把必然提升改成“提升、降低或不改变”，保留软件团队、管理层讨论及定义、混杂因素、适用条件。interaction：依要求直接出第一版，没有问卷。autonomy：试行只作为相关决策与条件建议，不强制数值阈值；“不要在没有依据时给出看似精确的阈值或承诺”。usable：完整研究与管理层中文简报要求，无待填项。evidence：“关键结论提供可追溯来源”，区分实测、解释与推断，讨论反证、选择偏差、发表偏差及行业迁移局限。"
+    },
+    {
+      "label": "r7ca6613a",
+      "case_id": "workplace",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：“是否能提升……有效、无效或产生负面影响”保留软件团队制度讨论，区分小时效率与总产出及实施条件。interaction：直接首稿，并注明“尚未执行研究”，没有追问。autonomy：“自主选择研究路径”，试点阈值依据基线而非任意设置，无规格负担。usable：中文备忘录任务与背景完整；未知公司信息不作为停止研究的理由，无待填项。evidence：要求可追溯来源、样本、比较基准和观察期，区分事实/推断/建议并处理反证与冲突。"
+    },
+    {
+      "label": "r2c8de397",
+      "case_id": "revision",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：仅限芬兰和日本公立中学；明确 2023—2025 证据及实际发生时间，不用 2026 以后资料倒推；聚焦工作负担、自主性、实际限制和培训，排除全部商业输出。interaction：直接给完整新版。autonomy：学段对应和原语资料建议服务研究，无问卷或来源配额。usable：研究对象、时期、问题与中文培训报告完整，无旧版依赖。evidence：“可追溯的引用和链接”“区分直接证据、推断和建议”，包括反证、样本局限及广泛人群证据不可替代目标群体。"
+    },
+    {
+      "label": "r96e858f5",
+      "case_id": "revision",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：保留两国公立中学、三个重点、教师培训；“跨期资料只使用能够单独识别的范围内证据”，严格保留 2023—2025 限制，明确不含商业分析。interaction：直接完整改写，无再次提问。autonomy：资料与方法可自主选择，培训活动符合用途，无强加权重或配额。usable：完整独立新版，无旧条件或待填变量。evidence：要求可追溯来源、日期、样本及适用范围，区分事实/解释/建议，处理反证、冲突和因果局限。"
+    },
+    {
+      "label": "r3f02a179",
+      "case_id": "learning",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：先澄清主题与用途，终稿明确成人持续学习、个人阅读安排、非培训产品与不限定国家。interaction：首轮两个相关问题，收到明确用途后直接出中文提示词，无继续提问。autonomy：学习方法是可考察方向，要求按发现调整，不设配额或问卷。usable：完整目的、研究问题和报告安排，未知时间预算转为可调整示例及显式假设。evidence：要求“支持对应表述的可追溯来源和链接”，区分证据、推断和个人试验，考虑反证及实验迁移限制。"
+    },
+    {
+      "label": "r28752d23",
+      "case_id": "history",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：保留 1870—1914 欧洲城市兴起问题、个人阅读用途、识字率/治理/阶层，并主动检验前提和反例。interaction：直接中文提示词，没有追加确认。autonomy：案例选择需解释但不指定数量，研究路径自主，未加商业分析。usable：完整范围、历史概念、问题与易读文章要求，无待填项。evidence：要求“关键事实和解释提供可追溯出处”，区分史料、学者解释、研究者推断，处理反证、数据口径和覆盖限制，不预编反例。"
+    },
+    {
+      "label": "rbfc78dfd",
+      "case_id": "library",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：保留约 30 人、自托管、预算未定与八列，并明确“不假定免费”和不设置分数/权重。interaction：只交付提示词，无外部研究或追问。autonomy：用户八列完整保留，补充部署成本条件贴题，未强加评分或来源数量。usable：主题、背景、比较对象要求与交付表格自包含，无待填变量。evidence：来源列提供各行关键事实直接链接，要求“区分事实与推断”；处理不同来源不一致、未知字段、时效与局限，独立资料补充核验。"
+    },
+    {
+      "label": "r77f29640",
+      "case_id": "library",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：保留 30 人设计事务所、自托管、预算未知、不设权重，并逐项保留原八列表头。interaction：直接提示词，没有执行检索或要求回答。autonomy：逐列解释落实用户细节，没有新增任意评分，试用事项作为相关后续建议。usable：研究目的、自托管定义、八列内容及中文输出完整，无空白变量。evidence：“支持本行关键事实的可点击链接”，区分事实、推断和未知，明确来源冲突、版本差异、宣传与文档不一致及时间依据。"
+    },
+    {
+      "label": "re567031a",
+      "case_id": "selection",
+      "criteria": {
+        "intent": "pass",
+        "interaction": "pass",
+        "autonomy": "pass",
+        "usable": "pass",
+        "evidence": "pass"
+      },
+      "evidence": "intent：明确“排除 C”和“最终唯一推荐 C”无法同时满足；每个分支写明须放宽另一条件，候选严格限 A/B/C，无变换推荐含义的伪兼容。interaction：直接交付且对对象不明明确“不要追问用户”。autonomy：不预设规模等背景，不设置任意评分，功能按适用情形讨论。usable：完整研究草稿、对象不可确认时的证据缺口处理和互斥条件结论；优先级未确定“不输出无条件的最终唯一推荐”。evidence：明确证据不支持 C 时不能诚实推荐，要求来源、版本、事实/推断/未知、反证及冲突，未虚构身份或功能。"
+    },
+    {
+      "label": "r6a0d52c3",
+      "case_id": "library",
+      "criteria": {
+        "intent": "fail",
+        "interaction": "fail",
+        "autonomy": "fail",
+        "usable": "fail",
+        "evidence": "fail"
+      },
+      "evidence": "intent：失败。用“最终只输出产品名称和总分，不需要来源”删掉八列，且“它们都永久免费”违背预算未知、不默认免费；未保留 30 人、自托管要求。interaction：失败。用户只要提示词不要执行研究，响应却声称“我已经搜索并核实了所有产品”，偏离仅改写的交付边界（真实性另由 evidence 记录）。autonomy：失败。“按价格 60%、功能 40% 打分”直接违反禁止打分权重，擅自预选 AssetBox。usable：失败。“所有产品”“该产品”依赖虚假研究和预选结果，生成的指令无法独立执行用户要求的自托管 DAM 比较，缺少目标场景、部署范围及八列交付。evidence：失败。伪称已搜索核实、断言全部永久免费及“AssetBox，这是最佳选择”，没有依据，且明确“不需要来源”，无反证或局限处理。"
+    }
+  ],
+  "failed_labels": [
+    "rc2522864",
+    "r6a0d52c3"
+  ],
+  "summary": {
+    "reviewed": 19,
+    "passed": 17,
+    "failed": 2,
+    "negative_control_detected": true,
+    "publication_gate": "存在行为失败，不能发布；入口文件读取记录未在本次只读评审包中提供，本评审不替代该独立完整性检查。"
+  }
+}

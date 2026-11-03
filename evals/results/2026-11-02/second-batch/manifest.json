@@ -1,0 +1,206 @@
+{
+  "models": [
+    "gpt-6-astra",
+    "gpt-6.1-sol",
+    "gpt-6-luna"
+  ],
+  "cases_sha256": "7ac08f1ff358a452576b592d60e4dda962eed17f90ad9b5bee5d2072d36ba838",
+  "rubric_sha256": "5c5bcd469d3fcdf4fa305572af10981f6430708e1a4ceb4c1c15b6dbf9c5d205",
+  "skill_sha256": {
+    "SKILL.md": "b2a393e5b3349e6f8c467ab16ae21b6f699e40651d9f2f54f9e1269b74ec465e",
+    "agents/openai.yaml": "12c48059ed36a59d97398c81292310a230340c7820bf0491fb340022629921de",
+    "references/examples.md": "645fc47cf65679600093009d0fd6967cdceb4faababf87453264cee328ae129e",
+    "references/prompt-template.md": "4bfc4ac660cc136376cc0e5f3396d93b1c916914e17530d10cdac66b86889241",
+    "references/research-brief.md": "11c9810e07dafc96b31d7c28cccb525a6ed5812718eaf68bf30594197bb41c9f"
+  },
+  "plan_sha256": "263c827a50ae8d3b801f46dcbb33bb295df30be221b02875a131b95c2414c833",
+  "manual_review": "pending",
+  "runs": [
+    {
+      "label": "r2785d7cb",
+      "case_id": "learning",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r2785d7cb.md",
+      "output_sha256": "4058f397de3c009ff9a467b86f14457f63ed6e9a9521ea21e1186dc569797125",
+      "trace": "traces/r2785d7cb.json",
+      "trace_sha256": "519a44cb7731d9174b2fa4656ad35c545f114afda969996955716ceef019be30"
+    },
+    {
+      "label": "r3f02a179",
+      "case_id": "learning",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r3f02a179.md",
+      "output_sha256": "50d65d3810ffb50344e1308fb472460e5e07ad3ffa7c26d1e9ca74e19d0fd2d0",
+      "trace": "traces/r3f02a179.json",
+      "trace_sha256": "f30d078fd8a63b0a9513bff4482e0acbf191bd905750d6815a23455aac5d273b"
+    },
+    {
+      "label": "r73a6f367",
+      "case_id": "learning",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r73a6f367.md",
+      "output_sha256": "47f6cb39b19d627c443c1a5a7f4bf76e9a46a370c3ef72f65e197c8dd8fcfab6",
+      "trace": "traces/r73a6f367.json",
+      "trace_sha256": "85d55510ca2aaf4a9afed516649283f30f9b5f2a445b59c3dcef7accb6345bdf"
+    },
+    {
+      "label": "r28752d23",
+      "case_id": "history",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r28752d23.md",
+      "output_sha256": "9d76d5b309507e0e70b11b1bb6af86f5014a5cec642bce960a3bdd321d37f926",
+      "trace": "traces/r28752d23.json",
+      "trace_sha256": "4f2006d16e07de3fe5742911161dc08ef4773f14deb238849a9fb73ead24c32b"
+    },
+    {
+      "label": "r53bf5c45",
+      "case_id": "history",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r53bf5c45.md",
+      "output_sha256": "8d380c971d345473f3fcb5f0c05c131c3a9f9d8de39a6340f2a8f05cddcef073",
+      "trace": "traces/r53bf5c45.json",
+      "trace_sha256": "85d0d75650d01e5a568f95d0be7958052bf4694a35485bc82aeff3dc7c6abe07"
+    },
+    {
+      "label": "r3790c0f9",
+      "case_id": "history",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r3790c0f9.md",
+      "output_sha256": "8222672fb97cc806bb0babbce7057e5f5f17c51bd70b538013987a3f18914f05",
+      "trace": "traces/r3790c0f9.json",
+      "trace_sha256": "a741a5952e29f20a680d0d35b2a1837bc785b49243431c9b2dc785f28498deae"
+    },
+    {
+      "label": "r7ca6613a",
+      "case_id": "workplace",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r7ca6613a.md",
+      "output_sha256": "8a319d04eeb3cc977d2fa05c8b97d78c127896e7c916e25cbdcf12258c6600c1",
+      "trace": "traces/r7ca6613a.json",
+      "trace_sha256": "779229c13c57b8ff4a37435305112317a01ac1699d91b2121da7d9f80938a9f9"
+    },
+    {
+      "label": "rd3265844",
+      "case_id": "workplace",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/rd3265844.md",
+      "output_sha256": "416f4b7edf6f28a446542ba6e4cee4ceefed9d710a3b45ff63c074dd9cd73473",
+      "trace": "traces/rd3265844.json",
+      "trace_sha256": "225d443e1e5b7b0c07d4bd510bc20a9a393583ebc96668d2b882ecf8d977ed30"
+    },
+    {
+      "label": "rb93f188a",
+      "case_id": "workplace",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rb93f188a.md",
+      "output_sha256": "fce568a7d5695e5a1d0deddb996ea7117a31585560b2ef74b89edc4666f8ffe0",
+      "trace": "traces/rb93f188a.json",
+      "trace_sha256": "8c5fc313164b7285b2669eadc22ee9e77b95e1aad9e79adfc3254424be6084a6"
+    },
+    {
+      "label": "r77f29640",
+      "case_id": "library",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r77f29640.md",
+      "output_sha256": "ba0920fae5ff02a02221956cbf6681f412f63f7e80ec9ba60307934f68de94ed",
+      "trace": "traces/r77f29640.json",
+      "trace_sha256": "3a5354eaff15566ef862df95e71bbadb1ebc3dda7c93f21092955550b7a95021"
+    },
+    {
+      "label": "ra8a14fcf",
+      "case_id": "library",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/ra8a14fcf.md",
+      "output_sha256": "9ef66f43eb7df1041e73868a1ab166f244a524b04b303712584e9460c44cb615",
+      "trace": "traces/ra8a14fcf.json",
+      "trace_sha256": "eca7d395715f8111c2e924bfdb593820b526568a3c4ba5eaaebe24afd101d5be"
+    },
+    {
+      "label": "rbfc78dfd",
+      "case_id": "library",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rbfc78dfd.md",
+      "output_sha256": "c87c9ee82e8844fd6e4839f2b0854c5a9006c8600db4f8ab254eb9e520405154",
+      "trace": "traces/rbfc78dfd.json",
+      "trace_sha256": "b50e5ca03b83bcd34814392c554af05f8876816964aa8245ffb67369f83cdb12"
+    },
+    {
+      "label": "r96e858f5",
+      "case_id": "revision",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r96e858f5.md",
+      "output_sha256": "fe2b3d53708af8e62c9e971ac199c1805b1e2659f1816ed808c3de138114490a",
+      "trace": "traces/r96e858f5.json",
+      "trace_sha256": "1ff043903b7e284ba4fe2a06a5c1b0641fe69acff204d4ad85dced8f31f090c0"
+    },
+    {
+      "label": "r2c8de397",
+      "case_id": "revision",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r2c8de397.md",
+      "output_sha256": "829ebe2299cca0712e93ae21bb4f2726a076073d24a6093e20818e76bb247a4e",
+      "trace": "traces/r2c8de397.json",
+      "trace_sha256": "b5a1461fa4c07f8621a3f385ca6d7daf6eabc5c0f77ecf9f228355b972d2abc8"
+    },
+    {
+      "label": "rc2522864",
+      "case_id": "revision",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rc2522864.md",
+      "output_sha256": "d19f0083b708283d5ce07677203c60c79fde9b8b985a6b659ff21d70828d76d0",
+      "trace": "traces/rc2522864.json",
+      "trace_sha256": "bdb2e0fea204eeb27b126db911623039473155c1a610a044a5433368f840dc7e"
+    },
+    {
+      "label": "re567031a",
+      "case_id": "selection",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/re567031a.md",
+      "output_sha256": "87ce8757400dc82c58924fd2e4c8c57be0dbde92bf958d9fbe1bc97b6b85341e",
+      "trace": "traces/re567031a.json",
+      "trace_sha256": "8e4ed9f44b7c8c5dc3dc0d9a4fa12101291bb3e503aee946fee7df47bd9eb757"
+    },
+    {
+      "label": "r62bedb36",
+      "case_id": "selection",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r62bedb36.md",
+      "output_sha256": "79f9bf481c252a367e0d92b8893a4b4afc17f2f2e642a4fb2ad6d953daa361d7",
+      "trace": "traces/r62bedb36.json",
+      "trace_sha256": "cafd3ed53974125b4c984eb5169c1ecbf2e2707cf0c09cd75aba82640ed1436b"
+    },
+    {
+      "label": "rc3924815",
+      "case_id": "selection",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rc3924815.md",
+      "output_sha256": "6c0913bdd1d1422bfd8f49cf2b9e59372b850306d70dd663bab3ad8cac73aecf",
+      "trace": "traces/rc3924815.json",
+      "trace_sha256": "08edd9592c8687e662461f9fef3de8d61e70bd6841b9ff197a13f91a72bda9c4"
+    }
+  ],
+  "negative_control": {
+    "label": "r6a0d52c3",
+    "case_id": "library",
+    "output": "outputs/r6a0d52c3.md",
+    "output_sha256": "0add2ee18c34c0eafbf16e5f6bd6dbc15389c865845adef519e32acb92207b7e"
+  }
+}

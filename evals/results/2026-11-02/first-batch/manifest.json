@@ -1,0 +1,205 @@
+{
+  "models": [
+    "gpt-6-astra",
+    "gpt-6.1-sol",
+    "gpt-6-luna"
+  ],
+  "cases_sha256": "7ac08f1ff358a452576b592d60e4dda962eed17f90ad9b5bee5d2072d36ba838",
+  "rubric_sha256": "5c5bcd469d3fcdf4fa305572af10981f6430708e1a4ceb4c1c15b6dbf9c5d205",
+  "skill_sha256": {
+    "SKILL.md": "8d9bacd437d8dce0c2ab71d1433ea4c27f671ed9dd9a29127af057490c3d400d",
+    "agents/openai.yaml": "12c48059ed36a59d97398c81292310a230340c7820bf0491fb340022629921de",
+    "references/examples.md": "645fc47cf65679600093009d0fd6967cdceb4faababf87453264cee328ae129e",
+    "references/prompt-template.md": "4bfc4ac660cc136376cc0e5f3396d93b1c916914e17530d10cdac66b86889241",
+    "references/research-brief.md": "11c9810e07dafc96b31d7c28cccb525a6ed5812718eaf68bf30594197bb41c9f"
+  },
+  "manual_review": "complete",
+  "runs": [
+    {
+      "label": "ra8cee35a",
+      "case_id": "learning",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/ra8cee35a.md",
+      "output_sha256": "da1d8ec18e73c80d588f17c010f5ba6dc14df9ee9ff81209178014cf1a60bcb9",
+      "trace": "traces/ra8cee35a.json",
+      "trace_sha256": "b6bd500138b71fbaf3d6045d842e50f1b848b778d8a1f478dad2734f611aef07"
+    },
+    {
+      "label": "r35cf2a16",
+      "case_id": "learning",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r35cf2a16.md",
+      "output_sha256": "6348aee7bf86f2cb218227d434333d737fedcb419e897f80f349d14de1b2acd9",
+      "trace": "traces/r35cf2a16.json",
+      "trace_sha256": "d825d7a1b1db612ae482906881d04ee5e68888133c52ccfd5a1ab456faf6fe1d"
+    },
+    {
+      "label": "rfebe9c4b",
+      "case_id": "learning",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rfebe9c4b.md",
+      "output_sha256": "038f4003c30fe8cd66327099bac0b7a47627be4841987cb7ae2d5d91cc018737",
+      "trace": "traces/rfebe9c4b.json",
+      "trace_sha256": "60e867ff626ad271efcc4b2af9154e60bbab6cef6f23556e10813d60d5b1e31d"
+    },
+    {
+      "label": "r8a094f16",
+      "case_id": "history",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r8a094f16.md",
+      "output_sha256": "8f8b8bffaa5a4cd199f98ebff7d33f995cf3a3e76ad1f7a96678ff01347b8e68",
+      "trace": "traces/r8a094f16.json",
+      "trace_sha256": "b8642f03952e061fd5706b7ae4e05bc928b1ac49710aad64a6aa9381cbce0915"
+    },
+    {
+      "label": "r1470ed3e",
+      "case_id": "history",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r1470ed3e.md",
+      "output_sha256": "f0a1da6bab6e3be646c25764fedd279ad182abbd5764048b3ec7a00af490e0b8",
+      "trace": "traces/r1470ed3e.json",
+      "trace_sha256": "bd1b9001febb32afbd9a9ba6568ab3a4167832da567d1b30d626a3cd7c5b3e31"
+    },
+    {
+      "label": "r587ec5e2",
+      "case_id": "history",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r587ec5e2.md",
+      "output_sha256": "85007ddd9e6992be42e56c7267d3cf2f44323e2edc232a9ad178ae04afdff256",
+      "trace": "traces/r587ec5e2.json",
+      "trace_sha256": "72ff9f9602061aa1966d4931924e1514e890cbc0eb3b8bfc0b49e4013a10be24"
+    },
+    {
+      "label": "rd39be74d",
+      "case_id": "workplace",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/rd39be74d.md",
+      "output_sha256": "bb6547f8fba411dc9bb07c20d949b12990e677bd7b760f4dd4c18e5f20dbd844",
+      "trace": "traces/rd39be74d.json",
+      "trace_sha256": "bea926594170b6d15e55fff53d6be6127288eabbe6d4228224e02e1de8e329dc"
+    },
+    {
+      "label": "rf6079f90",
+      "case_id": "workplace",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/rf6079f90.md",
+      "output_sha256": "d26d1fa62887e251c2a12fa5a7de0297f38693d09bd4baf41530e15e5c54cacf",
+      "trace": "traces/rf6079f90.json",
+      "trace_sha256": "24753fb147b3b778692763ee5e16c8bfbb6713417a36d271420bd89ad6fd0f84"
+    },
+    {
+      "label": "rd3bae4fb",
+      "case_id": "workplace",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rd3bae4fb.md",
+      "output_sha256": "b1a207e122d354c255901dfd88d8944d08aae68cacf247ed9167d0e47ba60fbe",
+      "trace": "traces/rd3bae4fb.json",
+      "trace_sha256": "fdcb0383afc0b362f94c141b0b50222a4d8de00905a1dab1864b7b961bfa7a73"
+    },
+    {
+      "label": "r2400e63c",
+      "case_id": "library",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/r2400e63c.md",
+      "output_sha256": "a186e6fa9d934d4c75551b0028a38bc26d21f10c86583c3377d647c5dabbd682",
+      "trace": "traces/r2400e63c.json",
+      "trace_sha256": "39313422c197d345aa513cf8617cf5e2d277f31c428f34ca3706fb45dc26e2e6"
+    },
+    {
+      "label": "r3ff90fe8",
+      "case_id": "library",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r3ff90fe8.md",
+      "output_sha256": "39eb79dc6a6d1ccc4d860c498f203aa6476ce21eb5fcfe686e4f1b097ea9581c",
+      "trace": "traces/r3ff90fe8.json",
+      "trace_sha256": "d658d1e0e87c8b2169fd5296384c7b6f4d2209e95a04bb466ce776b66797addc"
+    },
+    {
+      "label": "r5e6411de",
+      "case_id": "library",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r5e6411de.md",
+      "output_sha256": "52cc4db1383f700be8ba1716b95a928b5a33103968ddb75547be7eecbf330529",
+      "trace": "traces/r5e6411de.json",
+      "trace_sha256": "eabcc0f4ebcf3ecda87f42d9e4f12623107e89b08269afcc0b0cb9028e20bb59"
+    },
+    {
+      "label": "re8359663",
+      "case_id": "revision",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/re8359663.md",
+      "output_sha256": "d915068ed43d78ed32bb894547c289738e3ef8fe90f70d501917e91e9c3572b5",
+      "trace": "traces/re8359663.json",
+      "trace_sha256": "ccd6e4c96ae51b817ade3e3a9e422bd89e8b269d9b98b261b6c5f687bc6e7f1d"
+    },
+    {
+      "label": "r1d2f1b8a",
+      "case_id": "revision",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/r1d2f1b8a.md",
+      "output_sha256": "189044eebf0d10460f73deb0657756990e19de8edaa80d197678a2b377024abf",
+      "trace": "traces/r1d2f1b8a.json",
+      "trace_sha256": "a1592383260d87feb5c3eb44a7e45bd79285780dc41820abf7d9d72c90252ebb"
+    },
+    {
+      "label": "r2de9af60",
+      "case_id": "revision",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/r2de9af60.md",
+      "output_sha256": "be484c81688cd6c8a93963c9349e39f18431e948e7b63d2a0ee3c6ea26de3299",
+      "trace": "traces/r2de9af60.json",
+      "trace_sha256": "4600a50067b9fcad58e6acf5a8686bf00e592725cd85c40c871708f6e5762934"
+    },
+    {
+      "label": "rd29818f7",
+      "case_id": "selection",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "output": "outputs/rd29818f7.md",
+      "output_sha256": "6545d6bff6dd9c7cbbef2bf209e440167c3d5aacc1e1ae6e0553b599f7bdc606",
+      "trace": "traces/rd29818f7.json",
+      "trace_sha256": "b5f351b51fab813cb81b1f564ccdc68082554e6dabfc38bf5aa53d662035f279"
+    },
+    {
+      "label": "ra126001c",
+      "case_id": "selection",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "output": "outputs/ra126001c.md",
+      "output_sha256": "79560b7b5bfd623d1b981346071b6cef17e7724f02c5e9afe504fb9f7c7a8bc5",
+      "trace": "traces/ra126001c.json",
+      "trace_sha256": "38de61583f56cdabc88cbe234b08df8f35aeffe2a4059ec61a8c83e6f6290e88"
+    },
+    {
+      "label": "rc42851f7",
+      "case_id": "selection",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "output": "outputs/rc42851f7.md",
+      "output_sha256": "343d399dc3c007a73caf114b919d06ea6c8b4d53858c235d7bfc0a7fa828216d",
+      "trace": "traces/rc42851f7.json",
+      "trace_sha256": "82868834a7f1684c897c288e622ccd2a19a64f9249035b511d33e33f3d7d7588"
+    }
+  ],
+  "negative_control": {
+    "label": "r94ad87f1",
+    "case_id": "library",
+    "output": "outputs/r94ad87f1.md",
+    "output_sha256": "0add2ee18c34c0eafbf16e5f6bd6dbc15389c865845adef519e32acb92207b7e"
+  }
+}
