@@ -1,6 +1,6 @@
 # 版本与发布
 
-本仓库目前只有一个 skill，使用一个版本序列。`VERSION` 是版本号的唯一来源；标签、发布包名和 SkillHub 表单必须使用同一个数字版本，Git 标签加 `v` 前缀。当前源码版本为 `0.1.0`，尚未完成 Pay Skill 接入。
+本仓库目前只有一个 skill，使用一个版本序列。`VERSION` 是版本号的唯一来源；Git 标签使用 `vX.Y.Z`，上传到支付宝 SkillPay 的 ZIP 使用同一版本号命名。
 
 ## 版本约定
 
@@ -46,8 +46,6 @@ gh release create "v$release_version" \
 
 先确认工作区干净、标签对应预期提交。重复执行时先查看远端标签与 Release；不要强制移动标签，也不要用覆盖参数替换已发布资产。
 
-## Pay Skill 发布条件
+## 支付宝 SkillPay 发布
 
-版本机制不等于支付接入。根据 [SkillHub 个人接入指南](https://skillhub.cn/tutorials#alipay-pay)，Pay Skill 需要已注册的支付宝收费服务、公网 HTTPS 业务 API、付款凭证校验和结果交付。SkillHub 展示价、支付宝登记价和服务端账单价必须一致。
-
-本项目计划一次购买、永久使用所购版本。发布前验证首次验付与安装包交付、已购恢复和安装后重复使用。确定买断价后，表单标明一次付款对应的交付内容。完整方案见 [Pay Skill 买断交付草案](pay-service.md)。
+将本次构建的 `dist/grill-my-research-X.Y.Z.zip` 上传到已有的 Grill My Research 商品，沿用 ¥9.90 买断制。提交审核后，核对商品状态与公开购买页。具体步骤见 [SkillPay 发布指南](pay-service.md)。

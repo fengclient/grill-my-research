@@ -4,6 +4,8 @@
 
 适用于市场扫描、技术选型、学术综述、历史研究、政策比较、产品策略等主题。它帮助你明确研究要回答什么、哪些证据能回答、什么结果才算有用；默认交付提示词，不自动发起外部研究。
 
+[在支付宝 SkillPay 购买 Grill My Research](https://skillpay.alipay.com/user/product?merchantId=2088702084897672&productId=P0806000211847585)。**¥9.90 一次买断**，付款后获得完整 Skill，可在自己的 Agent 中永久使用所购版本，生成或改写提示词不限次数。
+
 ## 使用方式
 
 在能够读取本仓库文件的 Agent 中输入：
@@ -77,7 +79,7 @@ python3 scripts/check-evals.py evals/results/2026-11-02
 python3 scripts/build-release.py --evals evals/results/2026-11-02
 ```
 
-发布与升级步骤见 [版本管理说明](docs/releasing.md)。当前源码基线尚未接入支付宝收费 API，不能作为 Pay Skill 直接提交；普通提示词评测通过不表示支付能力就绪。
+打包与版本管理见[发布说明](docs/releasing.md)，支付宝商品更新步骤见 [SkillPay 发布指南](docs/pay-service.md)。
 
 ## 项目文件
 
