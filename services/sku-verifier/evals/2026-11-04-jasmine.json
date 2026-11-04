@@ -1,0 +1,222 @@
+{
+  "case": "东方树叶茉莉花茶 500 mL",
+  "finishedAt": "2026-11-04T11:16:10.677Z",
+  "status": "completed",
+  "target": {
+    "brand": "东方树叶",
+    "productName": "茉莉花茶",
+    "netQuantity": {
+      "value": 500,
+      "unit": "mL"
+    },
+    "version": null,
+    "packageForm": null,
+    "officialDomains": [
+      "nongfuspring.com"
+    ]
+  },
+  "runDirectory": "runs/jasmine-500ml-2026-11-04-3",
+  "artifactSha256": {
+    "report.json": "4f070abc0ee0664ef0012eac4b4ff3f98e0e81e37f9c830dba4aa9c3ea2b17ea",
+    "report.md": "4eef04ecd7b36464a59bd907487f9dc90a1dafda6982268da87103523645aae0"
+  },
+  "sourceCodeSha256": {
+    "src/cli.mjs": "69a4bf35b72d11b18cfd7490e326e9c8ad50b2bdbf88b1dbaa5a6272de39c34f",
+    "src/deepseek.mjs": "e8d3520a64b698c95aa11bc231be6dab91274a758d82a2ce5e5d94ca39cf29b5",
+    "src/evidence.mjs": "9c1d7038ab37ba8b0c542cfc70e9a56e94114e684d4d0e9bbb0738d32e20972f",
+    "src/model.mjs": "c39dbfac5a2c2a484e5b04bab808306938ff8bc3c3c822aa041d151e5b535ddf",
+    "src/report.mjs": "05ead7dbd351deb4c4e2a82fb906b20c6380256f8406b27287596869fb100d91",
+    "src/verify.mjs": "3d9952dbf010ccb1ca545ff4f811d49e577910243f5205e06645012e31c937b1"
+  },
+  "verification": {
+    "identityStatus": "requested_identity_supported",
+    "matchedSourceCount": 1,
+    "matchedDomainCount": 1,
+    "officialMatchedSourceCount": 0,
+    "rejected": [
+      {
+        "sourceId": "s1",
+        "reason": "事实缺少同一产品上下文中的可追溯原文"
+      },
+      {
+        "sourceId": "s8",
+        "reason": "未在产品上下文找到目标 brand"
+      }
+    ]
+  },
+  "fieldCoverage": [
+    {
+      "field": "ingredients",
+      "label": "配料",
+      "status": "source_supported",
+      "statementCount": 1
+    },
+    {
+      "field": "nutrition",
+      "label": "营养",
+      "status": "missing",
+      "statementCount": 0
+    },
+    {
+      "field": "shelfLife",
+      "label": "保质期",
+      "status": "source_supported",
+      "statementCount": 1
+    },
+    {
+      "field": "storage",
+      "label": "储存条件",
+      "status": "source_supported",
+      "statementCount": 1
+    },
+    {
+      "field": "manufacturer",
+      "label": "生产商",
+      "status": "missing",
+      "statementCount": 0
+    },
+    {
+      "field": "claims",
+      "label": "来源声明",
+      "status": "missing",
+      "statementCount": 0
+    },
+    {
+      "field": "offers",
+      "label": "渠道报价与条件",
+      "status": "missing",
+      "statementCount": 0
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.foodtalks.cn/product/4023",
+      "title": "东方树叶茉莉花茶-农夫山泉-FoodTalks食品产品库",
+      "kind": "other",
+      "publishedAt": null,
+      "retrievedAt": "2026-11-04T11:15:33.084Z",
+      "retrieval": "search",
+      "contentSha256": "9243846e218f19d7d9207d6608be1bd13bb28586d8a51e7fb93d66fc9f84d6e5"
+    },
+    {
+      "id": "s2",
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/517-%E7%9B%B4%E9%80%81/s/S2384001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89-%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6-%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6-%E6%B8%AF%E7%89%88%E8%A1%8C%E8%B2%A8-%E5%8E%9F%E7%AE%B1-15x500%E6%AF%AB%E5%8D%87Nongfu-Spring-Oriental-Leaf-SugarFree-Jasmine-Tea-%E6%A8%BD%E8%A3%85-/p/S2384001_S_110298",
+      "title": "农夫山泉 - 农夫山泉 东方树叶 无糖茉莉花茶 (港版行貨)- 原箱 15x500毫升Nongfu Spring Oriental Leaf Sugar-Free Jasmine Tea (樽装) - 4.8 (6 则评论)",
+      "kind": "other",
+      "publishedAt": null,
+      "retrievedAt": "2026-11-04T11:15:33.084Z",
+      "retrieval": "search",
+      "contentSha256": "de50df8181404a061255799d4f02fabff4086bfe8f31126a8e7c77ef2e529fcd"
+    },
+    {
+      "id": "s3",
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/517-%E7%9B%B4%E9%80%81/s/S2384001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6%E5%8E%9F%E7%AE%B115x500%E6%AF%AB%E5%8D%87%E6%96%B0%E6%97%A7%E5%8C%85%E8%A3%85%E9%9A%8F%E6%9C%BA%E5%8F%91%E8%B4%A7/p/S2384001_S_110336",
+      "title": "东方树叶 - 农夫山泉-东方树叶无糖茉莉花茶（原箱）15x500毫升-新旧包装随机发货",
+      "kind": "other",
+      "publishedAt": null,
+      "retrievedAt": "2026-11-04T11:15:33.084Z",
+      "retrieval": "search",
+      "contentSha256": "2f13572fef60c4f008d76f93c1b23ce6ca88cb92d343d47fd38f55b61569f942"
+    },
+    {
+      "id": "s4",
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/%E6%AC%A7%E4%BA%9A---%E7%94%9F%E6%B4%BB%E7%99%BE%E8%B4%A7/s/B1007001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6%E5%8E%9F%E7%AE%B115x-500%E6%AF%AB%E5%8D%87%E5%B9%B3%E8%A1%8C%E8%BF%9B%E5%8F%A3/p/B1007001_S_110336",
+      "title": "农夫山泉 - 东方树叶无糖茉莉花茶-原箱15x 500毫升，平行进口",
+      "kind": "other",
+      "publishedAt": null,
+      "retrievedAt": "2026-11-04T11:15:33.084Z",
+      "retrieval": "search",
+      "contentSha256": "14f0eda1e34d08faa6e3de6ca50a684bae0bb5b45db101fb1b5e922e4d179c50"
+    },
+    {
+      "id": "s5",
+      "url": "https://go.tcbdmall.com/index.php/Home/Goods/goodsInfo/id/13487481.html",
+      "title": "自营农夫山泉 东方树叶茉莉茶 500ml*15瓶",
+      "kind": "other",
+      "publishedAt": null,
+      "retrievedAt": "2026-11-04T11:16:01.498Z",
+      "retrieval": "fetch",
+      "contentSha256": "21c9ec7a5c419192a11b15e2997af8a0568435f2cf8c374d03f1e8850211cb52"
+    },
+    {
+      "id": "s6",
+      "url": "https://baike.baidu.com/item/%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6/10527140?fromModule=lemma_starMap&lemmaFrom=lemma_relation_starMap&structureId=60005a46c36b756713e12ee4&structureClickId=10527140&structureItemId=45bd8fd3b7950bb5b7d81087&lemmaIdFrom=50975818&svcp_stk=1_9uxnd4sYKz2q-iuK7HLGiQe2ainUM8650iRqHgqpsxnLVaI1Uw2HNxYTKL3cTSGuefJz7OiaTPKMmrH_3EeVbSNTpGcbum98B2vnHgScvUnRExpu3QFN8yOfnP1M4_biOmDG9vCAQaU4PElUBoLJ_Ec-llhOkwEsP_xAFKp0vsMnIbZ_aooMjYbd_3aOjfXC&bst=1793368955.22881384e54a05a0",
+      "title": "东方树叶",
+      "kind": "other",
+      "publishedAt": "2026-09-22T16:00:00+00:00",
+      "retrievedAt": "2026-11-04T11:16:05.823Z",
+      "retrieval": "search",
+      "contentSha256": "386cd554c63cd951700f645c6b0cd1553cea460517fa568a7cbbce3b44960f51"
+    },
+    {
+      "id": "s7",
+      "url": "https://wapbaike.baidu.com/item/%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6/10527140?fromModule=lemma_starMap&lemmaFrom=lemma_relation_starMap&structureId=78a8591e7e65a0f8a9bb23a4&structureClickId=10527140&structureItemId=45bd8fd3b7950bb5b7d81087&lemmaIdFrom=10298322",
+      "title": "东方树叶（农夫山泉旗下茶饮料）_百度百科 - 搜词条",
+      "kind": "other",
+      "publishedAt": "2026-09-22T16:00:00+00:00",
+      "retrievedAt": "2026-11-04T11:16:05.823Z",
+      "retrieval": "search",
+      "contentSha256": "5bebec845e7b79ab9a390e23e57866d9d386944b39cd4b08a02528283043e073"
+    },
+    {
+      "id": "s8",
+      "url": "https://www.hktvmall.com/hktv/zh/main/%E4%BA%8C%E5%92%8C%E9%81%B8%E7%89%A9-%232TOOGOODS-%E6%97%A5%E5%BC%8F%E7%94%9F%E6%B4%BB%E7%99%BE%E8%B2%A8%E7%B6%B2%E4%B8%8A%E5%BA%97/s/B0448001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E7%B4%9A%E5%B8%82%E5%A0%B4/%E9%A3%B2%E5%93%81-%E5%8D%B3%E6%B2%96%E9%A3%B2%E5%93%81/%E8%8C%B6%E9%A1%9E%E9%A3%B2%E5%93%81/%E6%A8%BD%E8%A3%9D%E8%8C%B6/%E6%9D%B1%E6%96%B9%E6%A8%B9%E8%91%89-%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6-500ml-15%E6%94%AF%E8%A3%9D-%E7%84%A1%E7%B3%96%E8%8D%BC%E9%A3%B2-%E8%86%A0%E6%A8%BD%E8%A3%9D-%E9%9D%9E%E5%8E%9F%E7%AE%B1-%E4%BD%BF%E7%94%A8%E7%92%B0%E4%BF%9D%E9%87%8D%E7%94%A8%E7%AE%B1%E5%8C%85%E8%A3%9D-%E7%84%A1%E7%B3%96%E8%8C%B6%E9%A3%B2%E7%B3%BB%E5%88%97-6921168594825-%E5%B9%B3%E8%A1%8C%E9%80%B2%E5%8F%A3-%E6%96%B0%E8%88%8A%E5%8C%85%E8%A3%9D%E9%9A%A8%E6%A9%9F%E7%99%BC%E8%B2%A8/p/B0448001_S_HKPDD016",
+      "title": "農夫山泉 | 東方樹葉 茉莉花茶 500ml 15支裝 無糖荼飲 膠樽裝 ＜非原箱＞ 使用環保重用箱包裝 無糖茶飲系列 6921168594825 平行進口 新舊包裝隨機發貨",
+      "kind": "other",
+      "publishedAt": null,
+      "retrievedAt": "2026-11-04T11:16:05.823Z",
+      "retrieval": "search",
+      "contentSha256": "dfba14c7be0b91cfa3743241689a496b61405ec80f651093ef11183feb7896f2"
+    },
+    {
+      "id": "s9",
+      "url": "https://baike.baidu.com/item/%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6/10527140?bst=1793079358.fdfef2a7d7a7dd02",
+      "title": "东方树叶 - 东方树叶",
+      "kind": "other",
+      "publishedAt": "2026-09-22T16:00:00+00:00",
+      "retrievedAt": "2026-11-04T11:16:05.823Z",
+      "retrieval": "search",
+      "contentSha256": "f7593a7c766929fd5066637c0bb791fb1d622ae6f0430e58281f9da26bc7bd09"
+    }
+  ],
+  "usage": {
+    "retrieval": {
+      "search": {
+        "attempts": 2,
+        "successfulResponses": 2,
+        "billableResponses": 2,
+        "uncertainOutcomes": 0
+      },
+      "fetch": {
+        "attempts": 1,
+        "successfulResponses": 1,
+        "billableResponses": 1,
+        "uncertainOutcomes": 0
+      },
+      "estimatedCostCny": 0.015
+    },
+    "model": {
+      "model": "deepseek-flash",
+      "attempts": 8,
+      "promptTokens": 125475,
+      "completionTokens": 707,
+      "uncertainOutcomes": 0
+    }
+  },
+  "limitations": [
+    "目标包装版本未指定",
+    "目标包装形式未指定",
+    "尚无官方精确规格正文支持",
+    "核验基于获取时的网页正文，包装图片尚未进行视觉复核",
+    "来源支持表示原文与请求规格匹配，来源之间的差异需要进一步核对"
+  ],
+  "checks": [
+    "目标品牌、品名和500mL输入一致",
+    "任务完成且至少一个请求身份匹配来源",
+    "配料、保质期与储存条件均有正文支持",
+    "每条事实引文存在于保存的来源正文",
+    "来源正文SHA-256一致"
+  ],
+  "reviewNote": "本次匹配来源为第三方产品库；官方精确规格、营养、报价及包装图片复核仍有缺口。"
+}

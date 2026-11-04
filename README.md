@@ -8,7 +8,7 @@
 
 ## SKU 核验服务
 
-本仓库同时开发面向预包装食品和饮料的 SKU 核验服务，使用 DeepSeek Search/Fetch 搜索与读取来源，计划通过火山引擎 veFaaS 提供按任务付费服务。当前已实现检索客户端、命令行入口和接口测试，运行步骤见 [SKU Verifier](services/sku-verifier/README.md)。
+本仓库同时开发面向预包装食品和饮料的 SKU 核验服务，使用 DeepSeek Search/Fetch 搜索与读取来源，计划通过火山引擎 veFaaS 提供按任务付费服务。当前可在本地执行“精确 SKU 输入 → Agent 检索 → 原文与规格检查 → JSON/Markdown 报告”，运行步骤与真实案例见 [SKU Verifier](services/sku-verifier/README.md)。
 
 ## 使用方式
 
@@ -99,6 +99,8 @@ grill-my-research/
 │   └── sku-verifier/
 │       ├── README.md
 │       ├── package.json
+│       ├── examples/
+│       ├── evals/
 │       ├── src/
 │       └── test/
 ├── docs/

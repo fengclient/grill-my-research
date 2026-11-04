@@ -8,6 +8,7 @@
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "search": "node src/cli.mjs search",
-    "fetch": "node src/cli.mjs fetch"
+    "fetch": "node src/cli.mjs fetch",
+    "verify": "node src/cli.mjs verify"
   }
 }

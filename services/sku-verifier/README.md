@@ -1,6 +1,6 @@
 # SKU Verifier
 
-面向预包装食品和饮料的 SKU 核验服务，计划部署到火山引擎 veFaaS。当前完成 DeepSeek Search/Fetch 客户端和命令行入口，可以搜索并获取页面正文。
+面向预包装食品和饮料的 SKU 核验服务，计划部署到火山引擎 veFaaS。当前提供从精确商品输入、搜索、正文获取到证据检查及 JSON/Markdown 报告的本地任务入口。
 
 ## 本地运行
 
@@ -19,7 +19,22 @@ CLI 输出 JSON，包含提供方原始结果、调用统计和估算费用。�
 ```sh
 node --env-file=../.env src/cli.mjs search '查询词'
 node --env-file=../.env src/cli.mjs fetch 'https://example.com/product'
+node --env-file=../.env src/cli.mjs verify examples/jasmine-tea-500ml.json runs/jasmine-first-run
 ```
+
+`verify` 的输出目录必须是新目录。命令写入 `report.json` 和 `report.md`，前者包含来源正文、获取时间、内容摘要、执行轨迹和用量，后者供阅读。`runs/` 已被 Git 忽略。重复执行请指定新目录，既有目录会在调用 API 前被拒绝。失败或预算耗尽时，命令返回非零退出码并保存失败状态与已取得来源。
+
+## Agent 与核验规则
+
+运行器使用 Node.js，默认模型为 `deepseek-flash`，可通过 `DEEPSEEK_MODEL` 配置。模型以 JSON 动作选择 `search`、`fetch` 或 `finish`，运行器执行动作并保存轨迹。默认每项任务最多 8 次模型调用、12 次 Search/Fetch 请求（含重试），一个来源向模型展示的正文最多 8,000 字符。更长页面会标记截断。
+
+模型选择正文行号，程序从已取得的正文提取原文。每个证据上下文必须同时包含目标品牌、品名和净含量；0.5 L 与 500 mL 可以匹配，混合容量、范围筛选值和未匹配的包装／版本会被拒绝。事实行必须位于该产品上下文内。当前按字面匹配品牌与品名，语言或名称别名需要在后续身份模型中处理。
+
+报告区分配料、营养、保质期、储存条件、生产商、来源声明和渠道报价原文。缺证据的字段显示缺失，多种来源表述并列供复核。报价保留来源上下文，数值单位价格计算待后续增加。官方来源由输入中的 `officialDomains` 匹配域名判定，页面标题中的“官方旗舰店”不会改变来源类型。
+
+示例输入只指定东方树叶、茉莉花茶和 500 mL，包装形式及版本为未知。`requested_identity_supported` 表示取得了匹配这些请求条件的原文。报告同时列出尚未指定的身份维度、官方精确规格证据及图片复核缺口。
+
+模型输出为空、截断或无效 JSON 时任务失败；模型调用采用单次请求，运行器记录 token 用量。Search/Fetch 费用与模型 token 分开统计，模型费用按实际调用时段和账户账单核算。
 
 ## 服务内调用
 
@@ -56,6 +71,10 @@ Search 默认 `needContent: true`。可选参数包括 `count`、`needContent`�
 
 ## 后续集成
 
-下一阶段将客户端接入“精确 SKU 输入 → 搜索与原文获取 → 身份及事实核验 → 带证据报告”的任务流程，再增加 veFaaS 异步执行、持久化恢复、支付和交付。
+完整任务的真实验证摘要见 [东方树叶案例记录](evals/2026-11-04-jasmine.json)。该记录保留使用量、来源 URL、正文摘要和代码摘要，完整网页快照及报告保存在本地运行目录。
+
+后续部署将运行器接入 veFaaS 异步任务，增加任务持久化、崩溃恢复、访问控制、支付和交付。当前目录中的本地文件输出适用于联调，云端存储和订单恢复需在部署阶段接入。
 
 官方契约见 [Search API](https://api-docs.deepseek.com/zh-cn/api/search/)、[Fetch API](https://api-docs.deepseek.com/zh-cn/api/fetch/) 与[错误处理及计费指南](https://api-docs.deepseek.com/zh-cn/guides/search/)。
+
+模型接口依据 [JSON Output](https://api-docs.deepseek.com/zh-cn/guides/json_mode/) 与 [Chat Completions](https://api-docs.deepseek.com/zh-cn/api/create-chat-completion/)。

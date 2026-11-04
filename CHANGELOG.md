@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- 增加 SKU 核验 Agent、正文行号证据提取、规格匹配与事实覆盖检查、JSON/Markdown 报告，以及东方树叶茉莉花茶 500 mL 的完整任务联调记录。
+
 - 新增 `services/sku-verifier/`，实现 DeepSeek Search/Fetch 客户端、调用量与估算费用统计、重试与请求预算，以及命令行入口和接口测试。
 
 - 补充支付宝 SkillPay 购买入口与商品更新流程。下方 0.1.0 记录的是打包时的状态；该版本随后于 2026-11-03 通过支付宝 SkillPay 审核，以 ¥9.90 买断价上架。
