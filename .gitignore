@@ -2,3 +2,7 @@
 research-prompts/
 .audit/
 dist/
+node_modules/
+.env
+.env.*
+!.env.example

@@ -6,6 +6,10 @@
 
 [在支付宝 SkillPay 购买 Grill My Research](https://skillpay.alipay.com/user/product?merchantId=2088702084897672&productId=P0806000211847585)。**¥9.90 一次买断**，付款后获得完整 Skill，可在自己的 Agent 中永久使用所购版本，生成或改写提示词不限次数。
 
+## SKU 核验服务
+
+本仓库同时开发面向预包装食品和饮料的 SKU 核验服务，使用 DeepSeek Search/Fetch 搜索与读取来源，计划通过火山引擎 veFaaS 提供按任务付费服务。当前已实现检索客户端、命令行入口和接口测试，运行步骤见 [SKU Verifier](services/sku-verifier/README.md)。
+
 ## 使用方式
 
 在能够读取本仓库文件的 Agent 中输入：
@@ -91,6 +95,12 @@ grill-my-research/
 ├── VERSION
 ├── CHANGELOG.md
 ├── .gitignore
+├── services/
+│   └── sku-verifier/
+│       ├── README.md
+│       ├── package.json
+│       ├── src/
+│       └── test/
 ├── docs/
 │   ├── migration.md
 │   ├── pay-service.md
@@ -126,4 +136,4 @@ grill-my-research/
 | [docs/migration.md](docs/migration.md) | 原模式的来源、保留项和泛化取舍 |
 | [openai.yaml](skills/grill-my-research/agents/openai.yaml) | Codex 展示信息和默认调用示例 |
 
-本项目从 `dt-my-research` 的研究提示词工作流提炼而来，移除了食品／饮料专属数据契约、Kimi 自动执行及市场地图导入流程。评测执行的是提示词创作，不执行提示词中的研究任务。
+`grill-my-research` skill 从 `dt-my-research` 的研究提示词工作流提炼而来，移除了食品／饮料专属数据契约、Kimi 自动执行及市场地图导入流程。其行为评测执行提示词创作；SKU 服务的检索接口测试在服务目录运行。

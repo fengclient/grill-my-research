@@ -1,6 +1,8 @@
 # 版本与发布
 
-本仓库目前只有一个 skill，使用一个版本序列。`VERSION` 是版本号的唯一来源；Git 标签使用 `vX.Y.Z`，上传到支付宝 SkillPay 的 ZIP 使用同一版本号命名。
+已发布的 `grill-my-research` skill 使用一个版本序列。`VERSION` 是该 skill 版本号的唯一来源；Git 标签使用 `vX.Y.Z`，上传到支付宝 SkillPay 的 ZIP 使用同一版本号命名。
+
+`services/sku-verifier/` 是独立开发中的服务。修改服务时运行 `cd services/sku-verifier && npm test`。现有 ZIP 打包脚本只收集 `skills/grill-my-research/`，服务的代码、配置和测试通过服务部署流程交付。
 
 ## 版本约定
 
