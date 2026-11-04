@@ -14,6 +14,13 @@ npm run fetch -- 'https://example.com/product'
 
 CLI 输出 JSON，包含提供方原始结果、调用统计和估算费用。命令行入口每次最多发起 3 次请求（含重试）。本地开发可以使用 `node --env-file=.env src/cli.mjs search '查询词'` 加载自行配置的环境文件，`.env` 已被 Git 忽略。
 
+若密钥统一放在 `services/.env`，在本目录使用下列命令加载：
+
+```sh
+node --env-file=../.env src/cli.mjs search '查询词'
+node --env-file=../.env src/cli.mjs fetch 'https://example.com/product'
+```
+
 ## 服务内调用
 
 ```js
@@ -39,7 +46,13 @@ Search 默认 `needContent: true`。可选参数包括 `count`、`needContent`�
 - `uncertainOutcomes` 记录断连、超时或成功响应无法解析的次数。此时提供方可能已经完成请求，估算费用只覆盖明确观察到的计费响应，应以账户账单为准。
 - 按 2026-11-04 查阅的官方价格，Search 和 Fetch 均为 ¥5／千次成功且有结果的请求。实际价格变化时更新客户端中的 `PRICING`。
 
-测试使用本地响应替身，覆盖请求契约、结果保留、输入校验、失败重试、预算、超时取消与命令行错误入口。实际账户连通性和商品站点的抓取效果需配置 API Key 后实测。
+自动化测试使用本地响应替身，覆盖请求契约、结果保留、输入校验、失败重试、预算、超时取消与命令行错误入口。
+
+## 真实接口联调
+
+2026-11-04 使用“农夫山泉 东方树叶 茉莉花茶 500ml 官网 配料”完成一次 Search，得到 10 条结果，包含官方页面、食品产品库与零售页。随后对命中的[农夫山泉官方页面](https://www.nongfuspring.com/goods/detail-all.html?id=1)完成一次 Fetch，得到 1,623 个字符的正文。两个成功请求各执行 1 次，按当日公开单价合计估算 ¥0.01。
+
+搜索结果包含多个规格、地区和组合包装。后续核验流程需要分别判断商品身份、适用地区、版本及报价条件，并将每项事实关联到具体来源。本次联调记录 Search/Fetch 的真实连通性与正文获取结果。
 
 ## 后续集成
 
