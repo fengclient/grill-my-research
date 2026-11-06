@@ -4,7 +4,7 @@
 
 ## 本地运行
 
-使用 Node.js 20.19+，通过运行环境提供 `DEEPSEEK_API_KEY`。服务没有第三方运行依赖。在本目录执行：
+使用 Node.js 20.19+，通过运行环境提供 `DEEPSEEK_API_KEY`。付费入口使用支付宝官方 SDK 和 PostgreSQL 驱动；本地研究入口仍可独立使用。在本目录执行：
 
 ```sh
 npm ci --ignore-scripts
@@ -52,7 +52,7 @@ console.log(results, search.usage);
 
 Search 默认 `needContent: true`。可选参数包括 `count`、`needContent`、`originalQuestion`、`localization` 和 `signal`；Fetch 接收 URL 与可选 `signal`。调用预算由一个客户端内所有 Search/Fetch 共用，在进程内同步预留，超出后返回 `REQUEST_BUDGET_EXCEEDED`。
 
-该预算适用于当前任务客户端。同步云端入口每次请求独立执行，调用方断连后不自动重试，没有跨实例幂等和事后结果恢复。账户总开支上限仍需单独管理。客户端返回提供方内容，上层核验服务把网页正文视为证据数据，逐条匹配 SKU 身份并记录获取时间。
+该预算适用于当前任务客户端。原有内部同步入口每次请求独立执行，调用方断连后不自动重试。独立付费入口通过持久化订单避免跨实例重复执行，并支持领取已保存的结果。账户总开支上限仍需单独管理。客户端返回提供方内容，上层核验服务把网页正文视为证据数据，逐条匹配 SKU 身份并记录获取时间。
 
 ## 错误与计费
 
@@ -76,8 +76,24 @@ Search 默认 `needContent: true`。可选参数包括 `count`、`needContent`�
 
 2026-11-06 在个人账号的 veFaaS 同步函数上完成真实验证，约 11.4 秒直接返回 HTTP 200 和完整报告；2 个不同域名来源支持请求规格。Search 已返回正文，因此本轮只执行 2 次 Search，没有另发 Fetch 请求，检索费用估算 ¥0.01，不含模型及云函数费用。配料和储存条件的不同表述并列保留，官方精确规格、生产商与报价仍有缺口。引文、来源摘要和云端回拉代码的逐字节检查通过，记录见 [云端案例](evals/2026-11-06-cloud-jasmine.json)。
 
-veFaaS 入口在一次同步请求内完成核验，直接返回 JSON 或 Markdown；运行权限由平台 IAM 和服务 token 控制。调用方负责保存结果，支付、消费者鉴权和账户总预算尚未接入。
+veFaaS 入口在一次同步请求内完成核验，直接返回 JSON 或 Markdown；运行权限由平台 IAM 和服务 token 控制。该内部入口由调用方保存结果。新增的独立付费入口提供支付宝验付、订单执行锁和报告恢复，尚未完成生产支付联调；账户总预算需单独管理。
 
 官方契约见 [Search API](https://api-docs.deepseek.com/zh-cn/api/search/)、[Fetch API](https://api-docs.deepseek.com/zh-cn/api/fetch/) 与[错误处理及计费指南](https://api-docs.deepseek.com/zh-cn/guides/search/)。
 
 模型接口依据 [JSON Output](https://api-docs.deepseek.com/zh-cn/guides/json_mode/) 与 [Chat Completions](https://api-docs.deepseek.com/zh-cn/api/create-chat-completion/)。
+
+## 按次付费入口
+
+消费者安装 [`sku-verifier` Skill](../../skills/sku-verifier/SKILL.md)，每项任务 ¥0.99。服务使用独立入口 `src/paid-server.mjs`，配置示例见 [`paid/.env.example`](paid/.env.example)，上线步骤见[发布指南](../../docs/sku-pay-service.md)。
+
+```sh
+npm run migrate:paid
+npm run start:paid
+npm run build:paid -- /tmp/sku-verifier-paid-build
+```
+
+数据库集成测试必须显式选择一次性测试库，不能指向生产数据库。未配置测试库时，相关测试会跳过，不能据此声称付费链路通过。
+
+```sh
+SKU_TEST_DATABASE_URL=postgresql://localhost/sku_paid_test npm test
+```

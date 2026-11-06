@@ -12,6 +12,14 @@
     "verify": "node src/cli.mjs verify",
     "verify:cloud": "node src/cloud-cli.mjs",
     "start": "node src/cloud.mjs",
-    "build:cloud": "node scripts/build-cloud.mjs"
+    "build:cloud": "node scripts/build-cloud.mjs",
+    "start:paid": "node src/paid-server.mjs",
+    "build:paid": "node scripts/build-paid.mjs",
+    "migrate:paid": "node scripts/migrate-paid.mjs",
+    "test:paid:pg": "node --test test/paid-postgres.test.mjs"
+  },
+  "dependencies": {
+    "alipay-sdk": "4.14.0",
+    "pg": "8.16.3"
   }
 }

@@ -1,0 +1,61 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SKU_TEST_DATABASE_URL: postgres://postgres:sku_test_only_password@127.0.0.1:5432/sku_paid_test
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: sku_paid_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: sku_test_only_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d sku_paid_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20.20.0'
+          package-manager-cache: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install service dependencies without lifecycle scripts
+        working-directory: services/sku-verifier
+        run: npm ci --ignore-scripts
+      - name: Run service tests with required disposable PostgreSQL
+        working-directory: services/sku-verifier
+        run: |
+          test -f test/paid-postgres.test.mjs
+          node --input-type=module -e "import assert from 'node:assert/strict'; assert.equal(new URL(process.env.SKU_TEST_DATABASE_URL).pathname, '/sku_paid_test');"
+          npm test
+      - name: Run consumer CLI HTTP tests
+        run: node --test tests/sku-client.test.mjs
+      - name: Run consumer release tests
+        run: python -m unittest discover -s tests -p test_sku_release.py
+      - name: Check saved behavioral evidence
+        run: python scripts/check-evals.py evals/results/2026-11-02
+      - name: Run behavioral evidence validator tests
+        run: python scripts/test-evals.py
+      - name: Run original Skill release tests
+        run: python scripts/test-release.py
+      - name: Build consumer Skill package
+        run: python scripts/build-sku-release.py --output-dir "$RUNNER_TEMP/sku-release"

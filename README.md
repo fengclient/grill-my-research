@@ -8,7 +8,11 @@
 
 ## SKU 核验服务
 
-本仓库同时开发面向预包装食品和饮料的 SKU 核验服务，使用 DeepSeek 模型与 Search/Fetch 执行“精确 SKU 输入 → Agent 检索 → 原文与规格检查 → JSON/Markdown 报告”。支持本地任务和 veFaaS 同步调用，核验完成后直接返回报告，由调用方保存。运行步骤与真实案例见 [SKU Verifier](services/sku-verifier/README.md)，发布步骤见 [veFaaS 部署说明](services/sku-verifier/cloud/README.md)。按任务支付和消费者交付入口尚未接入。
+本仓库同时开发面向预包装食品和饮料的 SKU 核验服务，使用 DeepSeek 模型与 Search/Fetch 执行“精确 SKU 输入 → Agent 检索 → 原文与规格检查 → JSON/Markdown 报告”。支持本地任务和 veFaaS 同步调用。运行步骤与真实案例见 [SKU Verifier](services/sku-verifier/README.md)。
+
+独立的 [sku-verifier Skill](skills/sku-verifier/SKILL.md) 将这项服务提供给用户自己的 Agent，定价 **¥0.99／次核验任务**，通过支付宝 Machine Pay（AI 按量付费）付款。付款购买一次检索和证据核验，不保证找到精确 SKU 或所有字段。重复领取同一订单的报告不再次执行核验。
+
+当前已注册 ¥0.99 的支付宝服务，并在公司火山账号创建独立 Supabase 和网关服务。商户应用密钥、付费函数发布及真实支付验收尚未完成，暂不可供消费者使用。接入流程与验证状态见[按次服务发布说明](docs/sku-pay-service.md)。它与上面的 ¥9.90 提示词 Skill 买断商品分开销售。
 
 ## 使用方式
 
@@ -77,7 +81,7 @@ python3 scripts/check-evals.py evals/results/2026-11-02
 
 ## 版本与发布
 
-版本号以 [VERSION](VERSION) 为准，变化记录在 [CHANGELOG.md](CHANGELOG.md)。仓库使用 SemVer、带注释的 `vX.Y.Z` 标签和 GitHub Releases；发布包只包含 skill 文件，并附 SHA-256 摘要。
+提示词 Skill 的版本号以 [VERSION](VERSION) 为准，变化记录在 [CHANGELOG.md](CHANGELOG.md)。它使用 SemVer、带注释的 `vX.Y.Z` 标签和 GitHub Releases；发布包只包含 skill 文件，并附 SHA-256 摘要。SKU Skill 使用自己的 [VERSION](skills/sku-verifier/VERSION) 和独立发布包。
 
 ```sh
 python3 scripts/build-release.py --evals evals/results/2026-11-02
@@ -94,42 +98,14 @@ grill-my-research/
 ├── README.md
 ├── VERSION
 ├── CHANGELOG.md
-├── .gitignore
-├── services/
-│   └── sku-verifier/
-│       ├── README.md
-│       ├── package.json
-│       ├── package-lock.json
-│       ├── cloud/
-│       ├── scripts/
-│       ├── examples/
-│       ├── evals/
-│       ├── src/
-│       └── test/
-├── docs/
-│   ├── migration.md
-│   ├── pay-service.md
-│   └── releasing.md
-├── evals/
-│   ├── README.md
-│   ├── cases.json
-│   ├── plan.json
-│   ├── rubric.md
-│   └── results/
-├── scripts/
-│   ├── check-evals.py
-│   ├── build-release.py
-│   ├── test-evals.py
-│   └── test-release.py
-└── skills/
-    └── grill-my-research/
-        ├── SKILL.md
-        ├── agents/
-        │   └── openai.yaml
-        └── references/
-            ├── research-brief.md
-            ├── prompt-template.md
-            └── examples.md
+├── skills/
+│   ├── grill-my-research/   # 提示词创作 Skill
+│   └── sku-verifier/        # 按次核验 Skill、客户端与独立版本
+├── services/sku-verifier/   # 研究运行器、内部入口、付费入口与订单迁移
+├── docs/                   # 迁移、安装、两种付费模式的发布说明
+├── evals/                  # 提示词 Skill 行为评测
+├── scripts/                # 评测检查和两个 Skill 的独立打包脚本
+└── tests/                  # 消费者客户端与 SKU 发布包测试
 ```
 
 | 文件 | 用途 |

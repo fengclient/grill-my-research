@@ -1,0 +1,8 @@
+{
+  "brand": "示例品牌",
+  "productName": "茉莉花茶",
+  "netQuantity": { "value": 500, "unit": "ml" },
+  "version": "无糖",
+  "packageForm": "瓶装",
+  "officialDomains": []
+}

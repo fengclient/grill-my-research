@@ -2,7 +2,9 @@
 
 已发布的 `grill-my-research` skill 使用一个版本序列。`VERSION` 是该 skill 版本号的唯一来源；Git 标签使用 `vX.Y.Z`，上传到支付宝 SkillPay 的 ZIP 使用同一版本号命名。
 
-`services/sku-verifier/` 是独立开发中的服务。修改服务时运行 `cd services/sku-verifier && npm test`。现有 ZIP 打包脚本只收集 `skills/grill-my-research/`，服务的代码、配置和测试通过服务部署流程交付。
+`services/sku-verifier/` 是独立开发中的服务。修改服务时运行 `cd services/sku-verifier && npm test`。原 ZIP 打包脚本只收集 `skills/grill-my-research/`，服务的代码、配置和测试通过服务部署流程交付。
+
+`skills/sku-verifier/` 是独立的按次服务客户端，其版本只取自该目录的 `VERSION`。使用 `python3 scripts/build-sku-release.py` 构建独立 ZIP 与 SHA-256 文件。SKU 发布标签采用 `sku-verifier-vX.Y.Z`，不得覆盖提示词 Skill 的 `vX.Y.Z` 标签。客户端包不含商户密钥或服务端代码。发布包构建成功不代表支付服务已上线，生产验证见[按次服务发布说明](sku-pay-service.md)。
 
 ## 版本约定
 
@@ -14,7 +16,7 @@
 
 `0.x` 表示接口仍在开发，破坏性变化增加 MINOR 并写清迁移方法。初次稳定发布使用 `1.0.0`。当前工具只打包正式数字版本；暂不引入自动发版服务或多包版本协调。
 
-Agent Skills 规范允许在 `metadata` 中放版本，但未要求统一版本字段。本项目把版本放在发布层，避免为每次发版改动模型指令。安装来源可通过版本标签、ZIP 文件名和平台版本确认；技能目录不再维护第二份版本号。
+Agent Skills 规范允许在 `metadata` 中放版本，但未要求统一版本字段。本项目把版本放在发布层，避免为每次发版改动模型指令。每项 Skill 只维护一份版本号。安装来源可通过版本标签、ZIP 文件名和平台版本确认。
 
 ## 准备发布
 

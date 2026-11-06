@@ -8,3 +8,5 @@ node_modules/
 !.env.example
 services/sku-verifier/runs/
 services/sku-verifier/cloud/deployment.local.json
+
+__pycache__/

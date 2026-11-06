@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-06T07:11:05.558Z",
+  "target": {
+    "brand": "东方树叶",
+    "version": null,
+    "netQuantity": {
+      "unit": "mL",
+      "value": 500
+    },
+    "packageForm": null,
+    "productName": "茉莉花茶",
+    "officialDomains": [
+      "nongfuspring.com"
+    ]
+  },
+  "payment": "synthetic adapter; no real payment",
+  "research": "real DeepSeek model and Search/Fetch",
+  "runtime": "v20.20.2",
+  "amount": "0.99",
+  "status": "completed",
+  "runs": 1,
+  "recoveryIdentical": true,
+  "elapsedMs": 35132,
+  "sources": [
+    {
+      "url": "https://www.foodtalks.cn/product/4023",
+      "contentSha256": "9243846e218f19d7d9207d6608be1bd13bb28586d8a51e7fb93d66fc9f84d6e5"
+    },
+    {
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/517-%E7%9B%B4%E9%80%81/s/S2384001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89-%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6-%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6-%E6%B8%AF%E7%89%88%E8%A1%8C%E8%B2%A8-%E5%8E%9F%E7%AE%B1-15x500%E6%AF%AB%E5%8D%87Nongfu-Spring-Oriental-Leaf-SugarFree-Jasmine-Tea-%E6%A8%BD%E8%A3%85-/p/S2384001_S_110298",
+      "contentSha256": "de50df8181404a061255799d4f02fabff4086bfe8f31126a8e7c77ef2e529fcd"
+    },
+    {
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/%E6%AC%A7%E4%BA%9A---%E7%94%9F%E6%B4%BB%E7%99%BE%E8%B4%A7/s/B1007001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6%E5%8E%9F%E7%AE%B115x-500%E6%AF%AB%E5%8D%87%E5%B9%B3%E8%A1%8C%E8%BF%9B%E5%8F%A3/p/B1007001_S_110336",
+      "contentSha256": "14f0eda1e34d08faa6e3de6ca50a684bae0bb5b45db101fb1b5e922e4d179c50"
+    },
+    {
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/517-%E7%9B%B4%E9%80%81/s/S2384001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6%E5%8E%9F%E7%AE%B115x500%E6%AF%AB%E5%8D%87%E6%96%B0%E6%97%A7%E5%8C%85%E8%A3%85%E9%9A%8F%E6%9C%BA%E5%8F%91%E8%B4%A7/p/S2384001_S_110336",
+      "contentSha256": "2f13572fef60c4f008d76f93c1b23ce6ca88cb92d343d47fd38f55b61569f942"
+    },
+    {
+      "url": "https://go.tcbdmall.com/index.php/Home/Goods/goodsInfo/id/13487481.html",
+      "contentSha256": "21c9ec7a5c419192a11b15e2997af8a0568435f2cf8c374d03f1e8850211cb52"
+    },
+    {
+      "url": "https://m.fanli.com/item/d556398229275",
+      "contentSha256": "31583540ad31a14c88bc7c2be9b5a2c918851beb0b6769d0dba1ea8e71ccb13a"
+    },
+    {
+      "url": "https://m.fanli.com/item/d556499891224",
+      "contentSha256": "823d99ec1a59c1d8977c6f84b766a62f037b9a3146241f144ebad7c05254b9f1"
+    },
+    {
+      "url": "https://m.fanli.com/item/d848824",
+      "contentSha256": "75b3caab2e5e5093b71e21cdce79de89026b1ec152546867200820058ca57ce7"
+    },
+    {
+      "url": "https://so.m.jd.com/chanpin/1336292.html?sort=5",
+      "contentSha256": "b8d085ff90efa44d7cbdd7c28d6a5d8f1870360495083c68a5910044b0b2d708"
+    }
+  ],
+  "verification": {
+    "identityStatus": "requested_identity_supported",
+    "matchedDomainCount": 2,
+    "matchedSourceCount": 2,
+    "officialMatchedSourceCount": 0
+  },
+  "usage": {
+    "model": {
+      "model": "deepseek-flash",
+      "attempts": 4,
+      "promptTokens": 53284,
+      "completionTokens": 150,
+      "uncertainOutcomes": 0
+    },
+    "retrieval": {
+      "fetch": {
+        "attempts": 1,
+        "billableResponses": 1,
+        "uncertainOutcomes": 0,
+        "successfulResponses": 1
+      },
+      "search": {
+        "attempts": 2,
+        "billableResponses": 2,
+        "uncertainOutcomes": 0,
+        "successfulResponses": 2
+      },
+      "estimatedCostCny": 0.015
+    }
+  },
+  "reportSha256": "e95d85469177baebec5a3e271fbea752fdedbc3a0a0d2beead10915fd6b6551b",
+  "scope": "Local paid HTTP server + real PostgreSQL + real DeepSeek; synthetic payment adapter, no production payment.",
+  "limitations": [
+    "Two distinct domains support requested brand, product name and 500 mL; no official exact SKU source passed verification.",
+    "Payment adapter was synthetic; this is not Alipay sandbox or live payment acceptance.",
+    "Gateway and production storage were not part of this check."
+  ]
+}
