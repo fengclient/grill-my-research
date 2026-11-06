@@ -20,7 +20,7 @@ CLI 输出 JSON，包含提供方原始结果、调用统计和估算费用。�
 ```sh
 node --env-file=../.env src/cli.mjs search '查询词'
 node --env-file=../.env src/cli.mjs fetch 'https://example.com/product'
-node --env-file=../.env src/cli.mjs verify examples/jasmine-tea-500ml.json runs/jasmine-first-run
+node --env-file=../.env src/cli.mjs verify examples/dongfang-shuye-tea-500ml.json runs/tea-first-run
 ```
 
 `verify` 的输出目录必须是新目录。命令写入 `report.json` 和 `report.md`，前者包含来源正文、获取时间、内容摘要、执行轨迹和用量，后者供阅读。`runs/` 已被 Git 忽略。重复执行请指定新目录，既有目录会在调用 API 前被拒绝。失败或预算耗尽时，命令返回非零退出码并保存失败状态与已取得来源。

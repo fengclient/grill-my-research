@@ -2,6 +2,8 @@ import hashlib
 import importlib.util
 import io
 from pathlib import Path
+import posixpath
+import re
 import shutil
 import tempfile
 import unittest
@@ -20,6 +22,7 @@ class SkuReleaseTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.skill = self.root / 'skills/sku-verifier'
         shutil.copytree(ROOT / 'skills/sku-verifier', self.skill)
+        (self.skill / 'VERSION').write_text('0.1.0\n')
         self.output = self.root / 'dist'
 
     def test_deterministic_allowlist_and_checksums(self):
@@ -45,6 +48,17 @@ class SkuReleaseTests(unittest.TestCase):
             self.assertEqual(bundle.read('VERSION'), b'0.1.0\n')
             for entry in bundle.infolist():
                 self.assertEqual(entry.date_time, (1980, 1, 1, 0, 0, 0))
+
+    def test_packaged_markdown_references_resolve_inside_archive(self):
+        name, _ = builder.build(self.root, self.output)
+        with zipfile.ZipFile(self.output / name) as bundle:
+            for document in (name for name in bundle.namelist() if name.endswith('.md')):
+                for link in re.findall(r'\]\(([^)]+)\)', bundle.read(document).decode()):
+                    if '://' in link or link.startswith('#'):
+                        continue
+                    target = posixpath.normpath(posixpath.join(posixpath.dirname(document), link.split('#')[0]))
+                    self.assertFalse(target.startswith('../') or target.startswith('/'), target)
+                    self.assertIn(target, bundle.namelist(), f'{document}: {link}')
 
     def test_refuses_changed_release_for_same_version(self):
         builder.build(self.root, self.output)

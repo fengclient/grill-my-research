@@ -14,6 +14,14 @@
 
 当前已注册 ¥0.99 的支付宝服务，并在公司火山账号创建独立 Supabase 和网关服务。正式商户密钥与预下单校验通过，付费函数已部署；真实付款及报告交付仍待验收，暂不作为已完成上线的收费服务。接入流程与验证状态见[按次服务发布说明](docs/sku-pay-service.md)。它与上面的 ¥9.90 提示词 Skill 买断商品分开销售。
 
+### 安装 SKU 核验预发布版
+
+从 [sku-verifier-v0.1.1 Release](https://github.com/fengclient/grill-my-research/releases/tag/sku-verifier-v0.1.1) 下载 `sku-verifier-0.1.1.zip`，交给支持 Skill 安装的 Agent，或将全部内容解压到其 `skills/sku-verifier/` 目录。ZIP 根目录是 `SKILL.md`，无需下载整个仓库。
+
+包内包含调用脚本、东方树叶 500 mL 示例、接口说明、实际 HTTPS 服务地址及支付宝买家组件的安装指引。需要 Node.js 20 或以上版本；客户端无需 `npm install`，不需要商户密钥或 DeepSeek API Key。支付宝买家支付组件需按包内指引单独安装。
+
+安装后输入“使用 sku-verifier 核验东方树叶茉莉花茶 500ml”。首次真实支付仍属于验收测试，Agent 应先说明状态并展示 ¥0.99 账单，获得你的确认后才进入支付。
+
 ## 使用方式
 
 在能够读取本仓库文件的 Agent 中输入：

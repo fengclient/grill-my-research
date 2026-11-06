@@ -10,7 +10,7 @@ import sys
 import zipfile
 
 FILES = (
-    'SKILL.md', 'VERSION', 'examples/jasmine-tea-500ml.json',
+    'SKILL.md', 'VERSION', 'examples/dongfang-shuye-tea-500ml.json',
     'references/client-contract.md', 'scripts/client.mjs',
 )
 
@@ -55,7 +55,7 @@ def main():
         name, digest = build(root, args.output_dir)
     except (ValueError, OSError) as error:
         sys.exit(str(error))
-    print(f'Built {name}\nSHA-256: {digest}\nDevelopment client package only. No endpoint, wallet, credentials, or live-payment certification is bundled.')
+    print(f'Built {name}\nSHA-256: {digest}\nPreview client package with service origin. Node.js 20+ and the official Alipay buyer capability are required. No credentials or live-payment certification is bundled.')
 
 
 if __name__ == '__main__':

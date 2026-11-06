@@ -58,15 +58,15 @@ SKU 核验定价为 **¥0.99／次完整核验任务**，通过支付宝 Machine
 ```sh
 mkdir -p "$HOME/.local/share/sku-verifier"
 node skills/sku-verifier/scripts/client.mjs quote \
-  skills/sku-verifier/examples/jasmine-tea-500ml.json \
-  "$HOME/.local/share/sku-verifier/jasmine-001" --endpoint https://your-verified-service.example
+  skills/sku-verifier/examples/dongfang-shuye-tea-500ml.json \
+  "$HOME/.local/share/sku-verifier/tea-001" --endpoint https://sjqejd27h19fslccuqorl.apigateway-cn-beijing.volceapi.com
 ```
 
-将示例地址替换为实际公开入口。客户端先保存私有订单凭据，再请求报价。Agent 展示 ¥0.99 账单，经用户确认后调用其已安装的官方支付宝支付能力。支付宝线上验证页指定的买家能力安装命令是 `npx -y @alipay/agent-payment@latest install`；按其当时文档操作，安装不代表已授权付款。当前服务端预下单验证未代替买家支付验收。付款完成后将 `Payment-Proof` 通过标准输入交给 `execute`，不要放入命令行参数或日志。
+命令已使用当前公开入口。客户端先保存私有订单凭据，再请求报价。Agent 展示 ¥0.99 账单，经用户确认后调用其已安装的官方支付宝支付能力。支付宝线上验证页指定的买家能力安装命令是 `npx -y @alipay/agent-payment@latest install`；按其当时文档操作，安装不代表已授权付款。当前服务端预下单验证未代替买家支付验收。付款完成后将 `Payment-Proof` 通过标准输入交给 `execute`，不要放入命令行参数或日志。
 
 ```sh
-node skills/sku-verifier/scripts/client.mjs execute "$HOME/.local/share/sku-verifier/jasmine-001" --proof-stdin
-node skills/sku-verifier/scripts/client.mjs recover "$HOME/.local/share/sku-verifier/jasmine-001"
+node skills/sku-verifier/scripts/client.mjs execute "$HOME/.local/share/sku-verifier/tea-001" --proof-stdin
+node skills/sku-verifier/scripts/client.mjs recover "$HOME/.local/share/sku-verifier/tea-001"
 ```
 
 命令中的 `skills/sku-verifier` 应替换为实际安装目录。订单目录须位于仓库和共享目录之外。

@@ -76,7 +76,7 @@ CLI 0.3.2 在从未发布过的函数上同时设置实例上下限可能返回 
 在服务目录执行：
 
 ```sh
-node --env-file=cloud/.env src/cloud-cli.mjs examples/jasmine-tea-500ml.json runs/cloud-jasmine-first
+node --env-file=cloud/.env src/cloud-cli.mjs examples/dongfang-shuye-tea-500ml.json runs/cloud-tea-first
 ```
 
 工具读取 `cloud/deployment.local.json`，先校验当前账号，再调用同步函数。输出目录必须是新目录；调用前创建目录，防止误用既有目录再次发起付费核验。返回后保存 `report.json`、`report.md` 和调用元数据 `invocation.json`。调用失败时记录 `failure.json`，不自动重试。
@@ -85,7 +85,7 @@ CLI 0.3.2 的 `fn invoke --requestJson` 接受 JSON 字符串，不支持 `@file
 
 ## 请求和返回
 
-`POST /verify` 的 JSON 请求体直接使用 [SKU 输入格式](../examples/jasmine-tea-500ml.json)，上限 32 KiB。请求头为 `Authorization: Bearer TOKEN` 和 `Content-Type: application/json`。默认返回完整报告 JSON；`POST /verify?format=markdown` 返回 Markdown。`GET /health` 返回就绪状态，也要求 token。
+`POST /verify` 的 JSON 请求体直接使用 [SKU 输入格式](../examples/dongfang-shuye-tea-500ml.json)，上限 32 KiB。请求头为 `Authorization: Bearer TOKEN` 和 `Content-Type: application/json`。默认返回完整报告 JSON；`POST /verify?format=markdown` 返回 Markdown。`GET /health` 返回就绪状态，也要求 token。
 
 HTTP 200 表示本轮采集和证据检查完成。是否建立精确身份匹配，以报告的 `verification.identityStatus` 和匹配来源为准。缺证据字段仍标记缺失。提供方失败或预算耗尽返回 HTTP 502 并附报告；输入错误返回 400，未鉴权返回 401，过大请求返回 413，实例忙返回 429。
 

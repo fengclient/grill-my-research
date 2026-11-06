@@ -6,6 +6,8 @@
 
 `skills/sku-verifier/` 是独立的按次服务客户端，其版本只取自该目录的 `VERSION`。使用 `python3 scripts/build-sku-release.py` 构建独立 ZIP 与 SHA-256 文件。SKU 发布标签采用 `sku-verifier-vX.Y.Z`，不得覆盖提示词 Skill 的 `vX.Y.Z` 标签。客户端包不含商户密钥或服务端代码。发布包构建成功不代表支付服务已上线，生产验证见[按次服务发布说明](sku-pay-service.md)。
 
+SKU `0.1.1` 作为 GitHub Pre-release 提供独立安装验收。包内记录服务地址和支付宝买家组件安装步骤；解压后应核对所有相对引用、执行打包客户端测试，并用真实服务验证报价与同订单恢复。真实支付由买家自行确认。发布附件为 `sku-verifier-0.1.1.zip` 和对应 `.sha256`，不以 GitHub 自动生成的源码压缩包代替。
+
 ## 版本约定
 
 按 `MAJOR.MINOR.PATCH` 判断使用者是否需要调整用法：
