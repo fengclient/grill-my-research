@@ -2,12 +2,12 @@
 
 SKU 核验定价为 **¥0.99／次完整核验任务**，通过支付宝 Machine Pay（其官方产品名为“AI 按量付费”）收款。用户价格不随内部模型 token、搜索次数或运行时长变化。用户在自己的 Agent 中安装 `sku-verifier`，确认账单后付款，再同步取得核验报告。原 Grill My Research 的 ¥9.90 买断商品使用另一条发布流程。
 
-本文记录的是待上线的服务接入流程。2026-11-06 已切换公司火山账号，建立独立的 SKU 网关服务和 Supabase 工作区。数据库直连、受限账号读写及权限隔离已验证；支付宝服务已注册，尚未发布付费函数或完成商户应用配置和真实支付验收。原有 veFaaS IAM 调用成功不等于消费者付费链路通过。
+本文记录的是待上线的服务接入流程。2026-11-06 已切换公司火山账号，建立独立的 SKU 网关服务和 Supabase 工作区。数据库直连、受限账号读写及权限隔离已验证；支付宝服务与正式应用已配置，私钥与登记公钥匹配；正式预下单返回 `10000 / Success`。公司付费函数已发布，真实支付与付费报告交付仍待验收。原有 veFaaS IAM 调用成功不等于消费者付费链路通过。
 
 ## 准备服务配置
 
 1. 准备 PostgreSQL 数据库。付费入口使用数据库原子领取订单执行资格，并保存报告用于重复领取。实例内存和云函数临时目录不能代替数据库。
-2. 以管理员身份在事务中创建私有 `sku_paid` schema，设置 `SET LOCAL search_path=sku_paid,pg_catalog`，依次执行 `migrations/001-paid-orders.sql` 和 `paid/provision-postgres.sql` 后提交。后者创建初始为 `NOLOGIN` 的受限 `sku_paid_runtime` 角色，启用并强制 RLS。另行在安全的管理进程中设置该角色的登录密码。服务使用其连接串，迁移使用管理员身份；禁止向消费者提供数据库凭据。
+2. 以管理员身份在事务中创建私有 `sku_paid` schema，设置 `SET LOCAL search_path=sku_paid,pg_catalog`，依次执行 `migrations/001-paid-orders.sql`、`migrations/002-quote-rate-limit.sql` 和 `paid/provision-postgres.sql` 后提交。后者创建初始为 `NOLOGIN` 的受限 `sku_paid_runtime` 角色，启用并强制 RLS。另行在安全的管理进程中设置该角色的登录密码。服务使用其连接串，迁移使用管理员身份；禁止向消费者提供数据库凭据。
 3. 在本地受 Git 忽略的环境文件中配置 `DATABASE_URL`、`DEEPSEEK_API_KEY`、`ALIPAY_ENVIRONMENT`、`ALIPAY_APP_ID`、`ALIPAY_SERVICE_ID`、`ALIPAY_PRIVATE_KEY` 和 `ALIPAY_PUBLIC_KEY`。以服务目录的环境示例和启动校验为准。不要将私钥或连接密码粘贴到聊天、命令行参数或 Skill 包。
 4. 设置 `SKU_PRICE_FEN=99`。支付宝注册的服务单价必须为 `0.99`。订单创建后金额固定，后续改价不改变既有订单。
 
@@ -16,9 +16,9 @@ SKU 核验定价为 **¥0.99／次完整核验任务**，通过支付宝 Machine
 ## 发布公开入口
 
 1. 为付费入口单独发布 veFaaS 函数，保留现有内部 IAM 核验入口。
-2. 在公司账号现有 `serverless-default` 网关中使用独立服务 `sku-verifier-paid`，通过 HTTPS 暴露 `POST /v1/verify` 和 `GET /v1/orders/:orderId`。网关服务域名已分配，尚未绑定付费函数，不能作为可用 API 对外发布。
-3. 确认网关透传 `Authorization`、`Payment-Proof` 和 `amtPaymentLink`。按核验执行上限配置超时，并为新订单配置并验证限流。当前代码没有跨实例报价限流，未验证网关限制前不得开放公开收费。恢复已有订单应保持可用。
-4. 从外部网络验证未付款请求只产生账单，不执行 DeepSeek；无效凭证、错金额和错订单均不交付报告。
+2. 在公司账号现有 `serverless-default` 网关中使用独立服务 `sku-verifier-paid`，通过 HTTPS 暴露 `POST /v1/verify` 和 `GET /v1/orders/:orderId`。网关服务域名已分配并接入独立付费函数。正式交易验收通过前，按待验收接口管理，不宣传为已完成收费交付。
+3. 确认网关透传 `Authorization`、`Payment-Proof` 和 `amtPaymentLink`。按核验执行上限配置超时。数据库通过事务锁对跨实例新订单创建执行统一配额，默认滚动每分钟 20 个、每 24 小时 200 个；超额返回 `429 QUOTE_RATE_LIMITED`。同订单重试、执行和恢复不占新订单配额。这是应用层新订单限制，不替代网关流量防护。
+4. 从外部网络验证未付款请求只产生账单，不执行 DeepSeek。当前公开入口已通过无授权、格式错误凭证和合成未付款凭证测试；错金额、错订单的本地测试仍需由真实支付验收补充。
 
 火山官方说明中，网关触发器与函数同时配置超时时取较小值，关闭触发器超时开关则该触发器不限制等待时长。仍须验证实际公开入口的完整请求链路，不能只检查函数配置。[API 网关触发器文档](https://www.volcengine.com/docs/6662/116904)
 
@@ -26,7 +26,7 @@ SKU 核验定价为 **¥0.99／次完整核验任务**，通过支付宝 Machine
 
 - 公司账号 `2101142542`，地域 `cn-beijing`。
 - 网关 `gd77mqoj2f3srdqla2ndg`，独立服务 `sjqejd27h19fslccuqorl`。
-- 已分配域名 `https://sjqejd27h19fslccuqorl.apigateway-cn-beijing.volceapi.com`，尚未接入付费路由。
+- 已分配域名 `https://sjqejd27h19fslccuqorl.apigateway-cn-beijing.volceapi.com`。付费函数 `8lieb2yh` revision 2、路由 `rdbmojm9es7493c70etp0` 已完成公开报价和未付款恢复验证。函数使用 Node.js 20、512 MB 内存、250 milli CPU、900 秒执行上限，实例数 0–2。
 - 独立 Supabase 工作区 `sku-verifier`，ID `vivid-bluet-63e5e1dt`，默认分支 `br-grand-skua-6a9d0aaf`。没有复用现有 GEO 数据库。
 - 空闲 3600 秒后自动休眠已配置并回读确认，下次访问由平台唤醒。冷启动行为尚待公开接口验收。
 - `sku_paid.paid_orders` 强制 RLS；运行账号仅有该表 SELECT、INSERT、UPDATE 权限，无 DELETE 和 schema CREATE 权限。真实 TLS 连接使用证书校验，验证数据已回滚。
@@ -47,7 +47,7 @@ SKU 核验定价为 **¥0.99／次完整核验任务**，通过支付宝 Machine
 | 服务单价 | 0.99 元／次 |
 | 服务描述 | 输入品牌、品名、净含量及可选包装或版本，检索公开来源，核对 SKU 与事实，返回包含原文证据的报告；缺失和冲突如实标明 |
 
-当前已注册服务 ID 为 `API_F6D557EB35C24739`，单价为 ¥0.99；密钥配置页等待商户阅读协议并创建应用。取得应用配置后，将该服务 ID 写入生产服务配置。应用私钥只留在服务端，消费者通过自己的支付宝支付能力取得凭证。
+当前已注册服务 ID 为 `API_F6D557EB35C24739`，单价为 ¥0.99；正式应用 APPID 为 `2021007116697194`。该配置已写入独立付费函数；正式预下单签名与响应验签已通过，没有执行付款。应用私钥只留在服务端，消费者通过自己的支付宝支付能力取得凭证。
 
 2026-11-06 核对的最新接口使用 `alipay.aipay.agent.payment.precreate` 生成预下单号，经 HTTP 402 的 `amtPaymentLink` 响应头交给调用方。用户付款后，请求携带 `Payment-Proof`，服务端调用 `alipay.aipay.agent.payment.verify` 并验证支付宝响应签名、订单号、交易号、金额和 `active`。SKU 与本地订单绑定，不依赖已废弃的 `resource_id`。[接入指南](https://aipay.alipay.com/docs/ai-receive/MACHINE_PAY.html)、[预下单接口](https://aipay.alipay.com/docs/ai-receive/api-list/alipay-aipay-agent-payment-precreate.html)、[凭证核验接口](https://aipay.alipay.com/docs/ai-receive/api-list/alipay-aipay-agent-payment-verify.html)
 
@@ -62,7 +62,7 @@ node skills/sku-verifier/scripts/client.mjs quote \
   "$HOME/.local/share/sku-verifier/jasmine-001" --endpoint https://your-verified-service.example
 ```
 
-将示例地址替换为实际公开入口。客户端先保存私有订单凭据，再请求报价。Agent 展示 ¥0.99 账单，经用户确认后调用其已安装的官方支付宝支付能力。付款完成后将 `Payment-Proof` 通过标准输入交给 `execute`，不要放入命令行参数或日志。
+将示例地址替换为实际公开入口。客户端先保存私有订单凭据，再请求报价。Agent 展示 ¥0.99 账单，经用户确认后调用其已安装的官方支付宝支付能力。支付宝线上验证页指定的买家能力安装命令是 `npx -y @alipay/agent-payment@latest install`；按其当时文档操作，安装不代表已授权付款。当前服务端预下单验证未代替买家支付验收。付款完成后将 `Payment-Proof` 通过标准输入交给 `execute`，不要放入命令行参数或日志。
 
 ```sh
 node skills/sku-verifier/scripts/client.mjs execute "$HOME/.local/share/sku-verifier/jasmine-001" --proof-stdin
@@ -86,5 +86,7 @@ node skills/sku-verifier/scripts/client.mjs recover "$HOME/.local/share/sku-veri
 ## 验证记录
 
 本地消费者 HTTP 入口已接入真实 DeepSeek 与隔离 PostgreSQL，东方树叶茉莉花茶 500ml 完成报价、执行、保存及同订单恢复，研究只执行一次。此次取得 9 个来源，其中 2 个不同域名支持东方树叶、茉莉花茶和 500 mL；官方精确规格仍缺少证据。支付使用测试适配器，没有真实扣款，因此不代表支付宝沙箱或生产支付验收通过。摘要见[本地付费链路记录](../services/sku-verifier/evals/2026-11-06-paid-local-jasmine.json)。
+
+应用密钥匹配、正式预下单和公司云函数未付款调用的脱敏结果见[正式环境配置验证](../services/sku-verifier/evals/2026-11-06-production-precreate.json)。
 
 完整测试范围、独立复核及上线门槛见[接入验证记录](sku-pay-verification.md)。

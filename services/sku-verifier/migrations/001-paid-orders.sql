@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS paid_orders (
   CHECK (octet_length(report::text) <= 2097152 AND octet_length(markdown) <= 2097152)
 );
 CREATE INDEX IF NOT EXISTS paid_orders_execution ON paid_orders (state, execution_deadline);
-CREATE OR REPLACE FUNCTION enforce_paid_order_immutability() RETURNS trigger LANGUAGE plpgsql AS $$
+CREATE OR REPLACE FUNCTION enforce_paid_order_immutability() RETURNS trigger LANGUAGE plpgsql SET search_path = pg_catalog AS $$
 BEGIN
   IF (NEW.order_id, NEW.capability_hash, NEW.target, NEW.target_hash, NEW.algorithm, NEW.price_fen,
       NEW.service_id, NEW.goods_name, NEW.currency, NEW.pay_before, NEW.created_at)

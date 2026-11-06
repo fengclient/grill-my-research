@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-06",
+  "environment": "production",
+  "appId": "2021007116697194",
+  "serviceId": "API_F6D557EB35C24739",
+  "keyMatch": {
+    "applicationPrivateKeyMatchesRegisteredPublicKey": true,
+    "rsaBits": 2048
+  },
+  "signedPrecreate": {
+    "code": "10000",
+    "message": "Success",
+    "amount": "0.99",
+    "currency": "CNY",
+    "hasPaymentLink": true
+  },
+  "cloud": {
+    "accountId": "2101142542",
+    "functionId": "8lieb2yh",
+    "revision": 2,
+    "unauthorizedStatus": 401,
+    "quoteStatus": 402,
+    "quoteKind": "payment_required",
+    "quoteAmount": "0.99",
+    "instanceMin": 0,
+    "instanceMax": 2
+  },
+  "limitations": [
+    "No payment was performed.",
+    "No paid report execution was performed.",
+    "Long-running public request and post-payment report recovery remain unverified."
+  ],
+  "publicEndpoint": "https://sjqejd27h19fslccuqorl.apigateway-cn-beijing.volceapi.com",
+  "publicChecks": {
+    "quoteStatus": 402,
+    "amount": "0.99",
+    "sameOrderRecovery": true,
+    "malformedProofStatus": 400,
+    "invalidUnpaidProofStatus": 402,
+    "unauthorizedRecoveryStatus": 401
+  },
+  "quoteAdmission": {
+    "perMinute": 20,
+    "per24Hours": 200,
+    "crossInstanceConcurrencyTest": true,
+    "cloudRuntimeRoleChecked": true
+  }
+}

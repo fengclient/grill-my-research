@@ -24,6 +24,7 @@ test('private PostgreSQL provisioning grants only the paid runtime lifecycle per
     const provision = await readFile(new URL('../paid/provision-postgres.sql', import.meta.url), 'utf8');
     await client.query(provision);
     await client.query(provision);
+    await client.query(await readFile(new URL('../migrations/001-paid-orders.sql', import.meta.url), 'utf8'));
     await client.query('SAVEPOINT unexpected_policy');
     await client.query('CREATE POLICY unrelated_anon ON sku_paid.paid_orders FOR SELECT TO anon USING (true)');
     await assert.rejects(client.query(provision), error => error.code === 'P0001' && /Unexpected policies/.test(error.message));

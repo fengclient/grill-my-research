@@ -6,7 +6,9 @@ const client = await pool.connect();
 try {
   await client.query('BEGIN');
   await client.query('SELECT pg_advisory_xact_lock(918229904)');
-  await client.query(await readFile(new URL('../migrations/001-paid-orders.sql', import.meta.url), 'utf8'));
+  for (const migration of ['001-paid-orders.sql','002-quote-rate-limit.sql']) {
+    await client.query(await readFile(new URL(`../migrations/${migration}`, import.meta.url), 'utf8'));
+  }
   await client.query('COMMIT');
   console.log('Paid order schema ready.');
 } catch {
