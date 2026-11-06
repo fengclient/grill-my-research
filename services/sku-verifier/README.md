@@ -1,12 +1,13 @@
 # SKU Verifier
 
-面向预包装食品和饮料的 SKU 核验服务，计划部署到火山引擎 veFaaS。当前提供从精确商品输入、搜索、正文获取到证据检查及 JSON/Markdown 报告的本地任务入口。
+面向预包装食品和饮料的 SKU 核验服务，提供从精确商品输入、搜索、正文获取到证据检查及 JSON/Markdown 报告的本地任务入口，以及 veFaaS 同步 HTTP 入口。云端核验完成后直接返回报告，由调用方保存。部署、调用和超时处理见 [云端部署说明](cloud/README.md)。
 
 ## 本地运行
 
-使用 Node.js 22+，通过运行环境提供 `DEEPSEEK_API_KEY`。客户端没有第三方运行依赖。在本目录执行：
+使用 Node.js 20.19+，通过运行环境提供 `DEEPSEEK_API_KEY`。服务没有第三方运行依赖。在本目录执行：
 
 ```sh
+npm ci --ignore-scripts
 npm test
 npm run search -- '无糖茶 330mL 包装规格'
 npm run fetch -- 'https://example.com/product'
@@ -51,7 +52,7 @@ console.log(results, search.usage);
 
 Search 默认 `needContent: true`。可选参数包括 `count`、`needContent`、`originalQuestion`、`localization` 和 `signal`；Fetch 接收 URL 与可选 `signal`。调用预算由一个客户端内所有 Search/Fetch 共用，在进程内同步预留，超出后返回 `REQUEST_BUDGET_EXCEEDED`。
 
-该预算适用于当前任务客户端。多实例执行、任务重启与实际账户开支上限，需要后续任务存储统一管理。客户端返回提供方内容，上层核验服务须把网页正文视为证据数据，逐条匹配 SKU 身份并记录获取时间。
+该预算适用于当前任务客户端。同步云端入口每次请求独立执行，调用方断连后不自动重试，没有跨实例幂等和事后结果恢复。账户总开支上限仍需单独管理。客户端返回提供方内容，上层核验服务把网页正文视为证据数据，逐条匹配 SKU 身份并记录获取时间。
 
 ## 错误与计费
 
@@ -73,7 +74,9 @@ Search 默认 `needContent: true`。可选参数包括 `count`、`needContent`�
 
 完整任务的真实验证摘要见 [东方树叶案例记录](evals/2026-11-04-jasmine.json)。该记录保留使用量、来源 URL、正文摘要和代码摘要，完整网页快照及报告保存在本地运行目录。
 
-后续部署将运行器接入 veFaaS 异步任务，增加任务持久化、崩溃恢复、访问控制、支付和交付。当前目录中的本地文件输出适用于联调，云端存储和订单恢复需在部署阶段接入。
+2026-11-06 在个人账号的 veFaaS 同步函数上完成真实验证，约 11.4 秒直接返回 HTTP 200 和完整报告；2 个不同域名来源支持请求规格。Search 已返回正文，因此本轮只执行 2 次 Search，没有另发 Fetch 请求，检索费用估算 ¥0.01，不含模型及云函数费用。配料和储存条件的不同表述并列保留，官方精确规格、生产商与报价仍有缺口。引文、来源摘要和云端回拉代码的逐字节检查通过，记录见 [云端案例](evals/2026-11-06-cloud-jasmine.json)。
+
+veFaaS 入口在一次同步请求内完成核验，直接返回 JSON 或 Markdown；运行权限由平台 IAM 和服务 token 控制。调用方负责保存结果，支付、消费者鉴权和账户总预算尚未接入。
 
 官方契约见 [Search API](https://api-docs.deepseek.com/zh-cn/api/search/)、[Fetch API](https://api-docs.deepseek.com/zh-cn/api/fetch/) 与[错误处理及计费指南](https://api-docs.deepseek.com/zh-cn/guides/search/)。
 

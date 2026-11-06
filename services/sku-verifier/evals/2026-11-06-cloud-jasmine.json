@@ -1,0 +1,231 @@
+{
+  "case": "东方树叶茉莉花茶 500 mL",
+  "execution": {
+    "platform": "Volcengine veFaaS",
+    "mode": "synchronous",
+    "region": "cn-beijing",
+    "runtime": "native-node20/v1",
+    "revision": 1,
+    "httpStatus": 200,
+    "startedAt": "2026-11-06T06:01:03.635Z",
+    "finishedAt": "2026-11-06T06:01:15.039Z",
+    "durationSeconds": 11.404,
+    "transport": "IAM-authenticated TestInvoke + service token"
+  },
+  "target": {
+    "brand": "东方树叶",
+    "productName": "茉莉花茶",
+    "netQuantity": {
+      "value": 500,
+      "unit": "mL"
+    },
+    "version": null,
+    "packageForm": null,
+    "officialDomains": [
+      "nongfuspring.com"
+    ]
+  },
+  "runDirectory": "runs/cloud-jasmine-500ml-20261106",
+  "artifactSha256": {
+    "report.json": "9115c23298e80e25c6eebba698ad8b011656bb0f32ff1c6ee11b9055509febff",
+    "report.md": "890bb97a6f0d9780124f144f1a814d6d16cb993459478fa8632b27dc080b4eeb",
+    "invocation.json": "01f8dab121f64f44ba1bbe63623d80b0dd24dcdf43cf8269edb7ac0b0cfc1071"
+  },
+  "deployedBuildManifestSha256": "7c240a9c53476a5a174bc5d9907b003c1a0a83d9b57dc98989fc86d43eec942f",
+  "deployedSourceCodeSha256": {
+    "src/cli.mjs": "69a4bf35b72d11b18cfd7490e326e9c8ad50b2bdbf88b1dbaa5a6272de39c34f",
+    "src/cloud.mjs": "b93fb03527d9c607a1f09b41816c886ec7dd29682b08c8645a440aec29215317",
+    "src/deepseek.mjs": "e8d3520a64b698c95aa11bc231be6dab91274a758d82a2ce5e5d94ca39cf29b5",
+    "src/evidence.mjs": "9c1d7038ab37ba8b0c542cfc70e9a56e94114e684d4d0e9bbb0738d32e20972f",
+    "src/model.mjs": "c39dbfac5a2c2a484e5b04bab808306938ff8bc3c3c822aa041d151e5b535ddf",
+    "src/report.mjs": "05ead7dbd351deb4c4e2a82fb906b20c6380256f8406b27287596869fb100d91",
+    "src/verify.mjs": "3d9952dbf010ccb1ca545ff4f811d49e577910243f5205e06645012e31c937b1"
+  },
+  "verification": {
+    "identityStatus": "requested_identity_supported",
+    "matchedSourceCount": 2,
+    "matchedDomainCount": 2,
+    "officialMatchedSourceCount": 0,
+    "rejected": []
+  },
+  "fieldCoverage": [
+    {
+      "field": "ingredients",
+      "status": "review_variants",
+      "statementCount": 2
+    },
+    {
+      "field": "nutrition",
+      "status": "source_supported",
+      "statementCount": 1
+    },
+    {
+      "field": "shelfLife",
+      "status": "source_supported",
+      "statementCount": 2
+    },
+    {
+      "field": "storage",
+      "status": "review_variants",
+      "statementCount": 2
+    },
+    {
+      "field": "manufacturer",
+      "status": "missing",
+      "statementCount": 0
+    },
+    {
+      "field": "claims",
+      "status": "missing",
+      "statementCount": 0
+    },
+    {
+      "field": "offers",
+      "status": "missing",
+      "statementCount": 0
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.foodtalks.cn/product/4023",
+      "title": "东方树叶茉莉花茶-农夫山泉-FoodTalks食品产品库",
+      "kind": "other",
+      "retrievedAt": "2026-11-06T06:01:05.975Z",
+      "retrieval": "search",
+      "contentSha256": "9243846e218f19d7d9207d6608be1bd13bb28586d8a51e7fb93d66fc9f84d6e5"
+    },
+    {
+      "id": "s2",
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/517-%E7%9B%B4%E9%80%81/s/S2384001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89-%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6-%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6-%E6%B8%AF%E7%89%88%E8%A1%8C%E8%B2%A8-%E5%8E%9F%E7%AE%B1-15x500%E6%AF%AB%E5%8D%87Nongfu-Spring-Oriental-Leaf-SugarFree-Jasmine-Tea-%E6%A8%BD%E8%A3%85-/p/S2384001_S_110298",
+      "title": "农夫山泉 - 农夫山泉 东方树叶 无糖茉莉花茶 (港版行貨)- 原箱 15x500毫升Nongfu Spring Oriental Leaf Sugar-Free Jasmine Tea (樽装) - 4.8 (6 则评论)",
+      "kind": "other",
+      "retrievedAt": "2026-11-06T06:01:05.975Z",
+      "retrieval": "search",
+      "contentSha256": "de50df8181404a061255799d4f02fabff4086bfe8f31126a8e7c77ef2e529fcd"
+    },
+    {
+      "id": "s3",
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/%E6%AC%A7%E4%BA%9A---%E7%94%9F%E6%B4%BB%E7%99%BE%E8%B4%A7/s/B1007001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6%E5%8E%9F%E7%AE%B115x-500%E6%AF%AB%E5%8D%87%E5%B9%B3%E8%A1%8C%E8%BF%9B%E5%8F%A3/p/B1007001_S_110336",
+      "title": "农夫山泉 - 东方树叶无糖茉莉花茶-原箱15x 500毫升，平行进口",
+      "kind": "other",
+      "retrievedAt": "2026-11-06T06:01:05.975Z",
+      "retrieval": "search",
+      "contentSha256": "14f0eda1e34d08faa6e3de6ca50a684bae0bb5b45db101fb1b5e922e4d179c50"
+    },
+    {
+      "id": "s4",
+      "url": "https://www.hktvmall.com/hktv/zh_CN/main/517-%E7%9B%B4%E9%80%81/s/S2384001/%E8%B6%85%E7%B4%9A%E5%B7%BF%E5%A0%B4/%E8%B6%85%E5%B8%82/%E9%A5%AE%E5%93%81-%E5%8D%B3%E5%86%B2%E9%A5%AE%E5%93%81/%E8%8C%B6%E7%B1%BB%E9%A5%AE%E5%93%81/%E7%93%B6%E8%A3%85%E8%8C%B6/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89%E4%B8%9C%E6%96%B9%E6%A0%91%E5%8F%B6%E6%97%A0%E7%B3%96%E8%8C%89%E8%8E%89%E8%8A%B1%E8%8C%B6%E5%8E%9F%E7%AE%B115x500%E6%AF%AB%E5%8D%87%E6%96%B0%E6%97%A7%E5%8C%85%E8%A3%85%E9%9A%8F%E6%9C%BA%E5%8F%91%E8%B4%A7/p/S2384001_S_110336",
+      "title": "东方树叶 - 农夫山泉-东方树叶无糖茉莉花茶（原箱）15x500毫升-新旧包装随机发货",
+      "kind": "other",
+      "retrievedAt": "2026-11-06T06:01:05.975Z",
+      "retrieval": "search",
+      "contentSha256": "2f13572fef60c4f008d76f93c1b23ce6ca88cb92d343d47fd38f55b61569f942"
+    },
+    {
+      "id": "s5",
+      "url": "https://go.tcbdmall.com/index.php/Home/Goods/goodsInfo/id/13487481.html",
+      "title": "自营农夫山泉 东方树叶茉莉茶 500ml*15瓶",
+      "kind": "other",
+      "retrievedAt": "2026-11-06T06:01:05.975Z",
+      "retrieval": "search",
+      "contentSha256": "d37457a885b6f5944a57aa3108d08f6cfa4a0cf506a4bf0cdb4dfffd76ae7ede"
+    },
+    {
+      "id": "s6",
+      "url": "https://www.nongfuspring.com/goods/detail-all.html?id=1",
+      "title": "水类-农夫山泉",
+      "kind": "official",
+      "retrievedAt": "2026-11-06T06:01:09.922Z",
+      "retrieval": "search",
+      "contentSha256": "2edeb4bc6f1bf7f0d19bc546477a6e2d305cb57cf86d1e5d1b7da6b564b29119"
+    },
+    {
+      "id": "s7",
+      "url": "https://www.nongfuspring.com/hk/mobile/goods/detail-all.html?id=2&pid=4",
+      "title": "水類-農夫山泉",
+      "kind": "official",
+      "retrievedAt": "2026-11-06T06:01:09.922Z",
+      "retrieval": "search",
+      "contentSha256": "77437ad1d45bc8f7efbfded5434ade9869ddb58267fa5a9185ee18ed8a773e10"
+    },
+    {
+      "id": "s8",
+      "url": "https://en.nongfuspring.com/mobile/goods/detail-all.html?id=1",
+      "title": "Water Products-Nongfu Spring",
+      "kind": "official",
+      "retrievedAt": "2026-11-06T06:01:09.922Z",
+      "retrieval": "search",
+      "contentSha256": "7feac41eaf993ef813505cfedc6dd0972b1c192117f6a79a5cbfe964a0b29647"
+    },
+    {
+      "id": "s9",
+      "url": "https://www.nongfuspring.com/hk/goods/detail-all.html?id=2&pid=4",
+      "title": "水類-農夫山泉",
+      "kind": "official",
+      "retrievedAt": "2026-11-06T06:01:09.922Z",
+      "retrieval": "search",
+      "contentSha256": "d442c49bab06df1831d196a137a3fe2c72840c4ffb2680d1f4ac65d075819675"
+    },
+    {
+      "id": "s10",
+      "url": "https://www.nongfuspring.com/my/goods/detail-all.html?pid=14&id=7&product_id=41",
+      "title": "Water Products-Nongfu Spring",
+      "kind": "official",
+      "retrievedAt": "2026-11-06T06:01:09.922Z",
+      "retrieval": "search",
+      "contentSha256": "db0201d5ede3592f8ceb31a08367ba327fa3377439655a4920cf662dc4d03f71"
+    }
+  ],
+  "usage": {
+    "retrieval": {
+      "search": {
+        "attempts": 2,
+        "successfulResponses": 2,
+        "billableResponses": 2,
+        "uncertainOutcomes": 0
+      },
+      "fetch": {
+        "attempts": 0,
+        "successfulResponses": 0,
+        "billableResponses": 0,
+        "uncertainOutcomes": 0
+      },
+      "estimatedCostCny": 0.01
+    },
+    "model": {
+      "model": "deepseek-flash",
+      "attempts": 8,
+      "promptTokens": 99197,
+      "completionTokens": 943,
+      "uncertainOutcomes": 0
+    }
+  },
+  "limitations": [
+    "目标包装版本未指定",
+    "目标包装形式未指定",
+    "尚无官方精确规格正文支持",
+    "核验基于获取时的网页正文，包装图片尚未进行视觉复核",
+    "来源支持表示原文与请求规格匹配，来源之间的差异需要进一步核对"
+  ],
+  "checks": [
+    "真实个人账号函数同步返回 HTTP 200",
+    "完整报告在调用方保存为 JSON 和 Markdown",
+    "目标品牌、品名、500mL 与输入一致",
+    "两个不同域名的来源支持请求规格",
+    "全部产品上下文和事实引文存在于保存的来源正文",
+    "全部来源正文 SHA-256 一致",
+    "部署入口及核验模块的摘要与本地受测代码一致",
+    "从云端回拉代码，与构建文件摘要及本地受测入口逐字节一致",
+    "部署代码包不包含环境文件",
+    "最终云端健康检查 HTTP 200、未鉴权 HTTP 401、无效目标 HTTP 400",
+    "云端资源清点只剩一个函数，实例范围 0–2，未发布异步草稿已删除"
+  ],
+  "reviewNote": "本次 Search 已返回正文，未另发 Fetch 请求。配料和储存条件存在来源表述差异；官方精确规格、生产商、来源声明和报价仍有缺口。Search 估算费用不含模型 token 和云函数费用。没有启用对象存储、异步任务和公网网关。",
+  "deployment": {
+    "liveFunctionCount": 1,
+    "minInstances": 0,
+    "maxInstances": 2,
+    "unusedAsyncDraftDeleted": true
+  }
+}

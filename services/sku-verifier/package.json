@@ -3,12 +3,15 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=20.19"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "search": "node src/cli.mjs search",
     "fetch": "node src/cli.mjs fetch",
-    "verify": "node src/cli.mjs verify"
+    "verify": "node src/cli.mjs verify",
+    "verify:cloud": "node src/cloud-cli.mjs",
+    "start": "node src/cloud.mjs",
+    "build:cloud": "node scripts/build-cloud.mjs"
   }
 }
