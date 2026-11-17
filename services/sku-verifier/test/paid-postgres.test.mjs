@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import pg from 'pg';
 import { PostgresPaidStore } from '../src/paid-store.mjs';
+import { PaidError } from '../src/alipay.mjs';
 import { createPaidVerifier } from '../src/paid-verifier.mjs';
 import { verifySku } from '../src/verify.mjs';
 import { createPaidServer } from '../src/paid-server.mjs';
@@ -80,6 +81,34 @@ test('real PostgreSQL durable payment and execution invariants', { skip: !databa
     const serializedRow = JSON.stringify(row);
     assert(!serializedRow.includes(request.recoverySecret)); assert(!serializedRow.includes('buyer-private-session')); assert(!serializedRow.includes('p'.repeat(64)));
     await assert.rejects(poolA.query('UPDATE paid_orders SET markdown=$2 WHERE order_id=$1', [request.orderId, 'changed']), /immutable paid order/);
+  });
+
+  await t.test('wallet proof can only deliver its own quoted target, even after completion', async () => {
+    await clear();
+    const own = newRequest();
+    const other = newRequest();
+    let runs = 0;
+    const service = makeService(storeA, {
+      alipay: { ...payments, verify: async (order, proof) => {
+        if (proof.trade_no !== order.order_id) throw new PaidError(402, 'PAYMENT_INVALID');
+        return proof.trade_no;
+      } },
+      verify: async target => { runs++; return reportFor(target); },
+    });
+    const replay = { orderId: own.orderId, target: own.target, paymentProofHeader: proofHeader(own.orderId) };
+    const invalid = err => err.code === 'PAYMENT_INVALID';
+    await assert.rejects(service.request(replay), invalid);
+    assert.equal(await storeA.get(own.orderId), null);
+    await service.request(own);
+    await service.request(other);
+    await assert.rejects(service.request({ ...replay, target: { ...own.target, productName: 'Other' } }), invalid);
+    await assert.rejects(service.request({ ...replay, paymentProofHeader: proofHeader(other.orderId) }), invalid);
+    const delivered = await service.request(replay);
+    assert.equal(delivered.kind, 'report');
+    assert.deepEqual(await service.request(replay), delivered);
+    await assert.rejects(service.request({ ...replay, paymentProofHeader: proofHeader(other.orderId) }), invalid);
+    assert.deepEqual(await service.recover(own), delivered);
+    assert.equal(runs, 1);
   });
 
   await t.test('HTTP disconnect does not abort paid research and GET recovers its committed report', async () => {

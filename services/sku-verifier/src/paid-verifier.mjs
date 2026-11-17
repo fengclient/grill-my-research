@@ -15,8 +15,11 @@ export function canonicalTarget(input) {
       officialDomains: [...new Set(input.officialDomains.map(value => value.toLowerCase()))].sort() };
   } catch { throw new PaidError(400, 'INVALID_TARGET'); }
 }
-function identity(orderId, recoverySecret) {
+function validateOrderId(orderId) {
   if (!/^[a-f0-9]{32}$/.test(orderId ?? '')) throw new PaidError(400, 'INVALID_ORDER_ID');
+}
+function identity(orderId, recoverySecret) {
+  validateOrderId(orderId);
   if (typeof recoverySecret !== 'string' || !/^[A-Za-z0-9_-]{43}$/.test(recoverySecret)
     || Buffer.from(recoverySecret, 'base64url').toString('base64url') !== recoverySecret) throw new PaidError(401, 'UNAUTHORIZED');
   return hash(recoverySecret);
@@ -53,18 +56,25 @@ export function createPaidVerifier({ store, alipay, verify, serviceId, goodsName
       return outcome(order);
     },
     async request({ orderId, recoverySecret, target: input, paymentProofHeader }) {
-      const capabilityHash = identity(orderId, recoverySecret);
+      validateOrderId(orderId);
+      const walletReplay = recoverySecret === undefined && paymentProofHeader !== undefined;
+      const capabilityHash = walletReplay ? null : identity(orderId, recoverySecret);
       const target = canonicalTarget(input);
       const targetHash = hash(JSON.stringify(target));
       const proof = paymentProofHeader === undefined ? null : parsePaymentProof(paymentProofHeader);
       let order = await store.get(orderId);
       if (!order) {
+        if (walletReplay) throw new PaidError(402, 'PAYMENT_INVALID');
         if (proof) throw new PaidError(404, 'ORDER_NOT_FOUND');
         order = await store.create({ orderId, capabilityHash, target, targetHash, priceFen, serviceId, goodsName,
           payBefore: new Date(now() + quoteTtlMs).toISOString() });
       }
-      authorize(order, capabilityHash, targetHash);
-      if (order.state !== 'awaiting_payment') return outcome(order);
+      if (walletReplay) {
+        if (order.target_hash !== targetHash) throw new PaidError(402, 'PAYMENT_INVALID');
+      } else {
+        authorize(order, capabilityHash, targetHash);
+        if (order.state !== 'awaiting_payment') return outcome(order);
+      }
       if (!proof) {
         if (now() > new Date(order.pay_before).getTime()) throw new PaidError(409, 'ORDER_EXPIRED');
         if (!order.payment_link) order = await store.setPaymentLink(orderId, await alipay.precreate(order));
@@ -74,21 +84,26 @@ export function createPaidVerifier({ store, alipay, verify, serviceId, goodsName
       let tradeNo;
       try { tradeNo = await alipay.verify(order, proof); }
       catch (error) {
+        if (walletReplay) throw error;
         const current = await store.get(orderId);
         if (current.state !== 'awaiting_payment') return outcome(current);
         throw error;
+      }
+      if (walletReplay && order.state !== 'awaiting_payment') {
+        if (order.trade_no !== tradeNo) throw new PaidError(402, 'PAYMENT_INVALID');
+        return outcome(order);
       }
       if (active) throw new PaidError(429, 'INSTANCE_BUSY');
       const claimToken = randomBytes(32).toString('hex');
       active = true;
       try {
-        order = await store.claim({ orderId, capabilityHash, targetHash, tradeNo, claimToken,
+        order = await store.claim({ orderId, capabilityHash: order.capability_hash, targetHash, tradeNo, claimToken,
           started: new Date(now()).toISOString(), deadline: new Date(now() + executionTimeoutMs).toISOString() });
       } catch (error) { active = false; throw error; }
       if (!order) {
         active = false;
         const existing = await store.get(orderId);
-        if (existing.state !== 'awaiting_payment') return outcome(existing);
+        if (existing && existing.state !== 'awaiting_payment' && (!walletReplay || existing.trade_no === tradeNo)) return outcome(existing);
         throw new PaidError(402, 'PAYMENT_INVALID');
       }
       const controller = new AbortController();

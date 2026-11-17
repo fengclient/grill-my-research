@@ -16,7 +16,7 @@
 
 ### 安装 SKU 核验预发布版
 
-从 [sku-verifier-v0.1.1 Release](https://github.com/fengclient/grill-my-research/releases/tag/sku-verifier-v0.1.1) 下载 `sku-verifier-0.1.1.zip`，交给支持 Skill 安装的 Agent，或将全部内容解压到其 `skills/sku-verifier/` 目录。ZIP 根目录是 `SKILL.md`，无需下载整个仓库。
+从 [sku-verifier-v0.2.0 Release](https://github.com/fengclient/grill-my-research/releases/tag/sku-verifier-v0.2.0) 下载 `sku-verifier-0.2.0.zip`，交给支持 Skill 安装的 Agent，或将全部内容解压到其 `skills/sku-verifier/` 目录。ZIP 根目录是 `SKILL.md`，无需下载整个仓库。
 
 包内包含调用脚本、东方树叶 500 mL 示例、接口说明、实际 HTTPS 服务地址及支付宝买家组件的安装指引。需要 Node.js 20 或以上版本；客户端无需 `npm install`，不需要商户密钥或 DeepSeek API Key。支付宝买家支付组件需按包内指引单独安装。
 

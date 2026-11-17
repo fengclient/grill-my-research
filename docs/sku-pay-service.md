@@ -26,7 +26,7 @@ SKU 核验定价为 **¥0.99／次完整核验任务**，通过支付宝 Machine
 
 - 公司账号 `2101142542`，地域 `cn-beijing`。
 - 网关 `gd77mqoj2f3srdqla2ndg`，独立服务 `sjqejd27h19fslccuqorl`。
-- 已分配域名 `https://sjqejd27h19fslccuqorl.apigateway-cn-beijing.volceapi.com`。付费函数 `8lieb2yh` revision 2、路由 `rdbmojm9es7493c70etp0` 已完成公开报价和未付款恢复验证。函数使用 Node.js 20、512 MB 内存、250 milli CPU、900 秒执行上限，实例数 0–2。
+- 已分配域名 `https://sjqejd27h19fslccuqorl.apigateway-cn-beijing.volceapi.com`。付费函数 `8lieb2yh` revision 3、路由 `rdbmojm9es7493c70etp0` 已完成公开报价和未付款恢复验证。函数使用 Node.js 20、512 MB 内存、250 milli CPU、900 秒执行上限，实例数 0–2。
 - 独立 Supabase 工作区 `sku-verifier`，ID `vivid-bluet-63e5e1dt`，默认分支 `br-grand-skua-6a9d0aaf`。没有复用现有 GEO 数据库。
 - 空闲 3600 秒后自动休眠已配置并回读确认，下次访问由平台唤醒。冷启动行为尚待公开接口验收。
 - `sku_paid.paid_orders` 强制 RLS；运行账号仅有该表 SELECT、INSERT、UPDATE 权限，无 DELETE 和 schema CREATE 权限。真实 TLS 连接使用证书校验，验证数据已回滚。
@@ -62,10 +62,11 @@ node skills/sku-verifier/scripts/client.mjs quote \
   "$HOME/.local/share/sku-verifier/tea-001" --endpoint https://sjqejd27h19fslccuqorl.apigateway-cn-beijing.volceapi.com
 ```
 
-命令已使用当前公开入口。客户端先保存私有订单凭据，再请求报价。Agent 展示 ¥0.99 账单，经用户确认后调用其已安装的官方支付宝支付能力。支付宝线上验证页指定的买家能力安装命令是 `npx -y @alipay/agent-payment@latest install`；按其当时文档操作，安装不代表已授权付款。当前服务端预下单验证未代替买家支付验收。付款完成后将 `Payment-Proof` 通过标准输入交给 `execute`，不要放入命令行参数或日志。
+命令已使用当前公开入口。客户端先保存私有订单凭据，再请求报价。Agent 展示 ¥0.99 账单，经用户确认后调用其已安装的官方支付宝支付能力。支付宝线上验证页指定的买家能力安装命令是 `npx -y @alipay/agent-payment@latest install`；按其当时文档操作，安装不代表已授权付款。当前服务端预下单验证未代替买家支付验收。买家 Agent 从本次报价取预下单号，在已授权的原订单上调用客户端的 `pay`。买家确认支付后，按官方钱包实际返回的查询号或交易号调用 `query`。具体参数见 [Skill 买家操作步骤](../skills/sku-verifier/SKILL.md)。
+
+钱包会对原地址重发相同的 POST，自行附上 `Payment-Proof`。服务端每次验证该凭证和原订单绑定的 SKU、金额、交易号。钱包取得非空报告后发送履约回执。处理中的钱包请求返回 HTTP 409，避免把进度信息误作已交付的报告。钱包不需要本地报告领取密钥。买家可按原订单领取已保存的报告：
 
 ```sh
-node skills/sku-verifier/scripts/client.mjs execute "$HOME/.local/share/sku-verifier/tea-001" --proof-stdin
 node skills/sku-verifier/scripts/client.mjs recover "$HOME/.local/share/sku-verifier/tea-001"
 ```
 

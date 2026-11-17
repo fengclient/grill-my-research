@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-import { randomBytes } from 'node:crypto';
+import { spawn } from 'node:child_process';
+import { createHash, randomBytes } from 'node:crypto';
 import { constants } from 'node:fs';
 import { mkdir, open, lstat, rename, unlink } from 'node:fs/promises';
 import { resolve, join, dirname } from 'node:path';
 
 const INPUT_LIMIT = 64 * 1024;
 const RESPONSE_LIMIT = 16 * 1024 * 1024;
-const USAGE = 'Usage: client.mjs quote <target.json> <new-run-dir> [--endpoint <https-origin>] | quote-again <run-dir> | execute <run-dir> --proof-stdin | recover <run-dir>';
+const USAGE = 'Usage: client.mjs quote <target.json> <new-run-dir> [--endpoint <https-origin>] | quote-again <run-dir> | pay <run-dir> --session-id <id> --amt-payment-link <quoted-value> | query <run-dir> (--out-shake-no <id> | --trade-no <id>) | execute <run-dir> --proof-stdin | recover <run-dir>';
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const fail = message => { throw new Error(message); };
 
@@ -161,9 +162,10 @@ async function receive(directory, run, response) {
     if (body.amount !== '0.99' || body.currency !== 'CNY' || !text(body.goodsName, 1000) || !text(body.payBefore, 100) || !Number.isFinite(Date.parse(body.payBefore)) || !text(body.paymentLink) || paymentLink !== body.paymentLink) fail('Service returned an invalid or unexpected bill. Do not pay.');
     const expired = Date.parse(body.payBefore) <= Date.now();
     const bill = { kind: body.kind, orderId: run.orderId, amount: body.amount, currency: body.currency, goodsName: body.goodsName, payBefore: body.payBefore, amtPaymentLink: body.paymentLink, ...(expired ? { expired: true } : {}) };
-    await save(directory, 'bill.json', JSON.stringify(bill, null, 2) + '\n');
+    const { amtPaymentLink, ...metadata } = bill;
+    await save(directory, 'bill.json', JSON.stringify({ ...metadata, linkHash: hashLink(amtPaymentLink) }, null, 2) + '\n');
     if (expired) return { ...bill, kind: 'expired', next: 'This original bill has expired. Do not pay or purchase a replacement automatically. Keep the receipt; use recover to check an already-paid result or contact the operator.' };
-    return { ...bill, next: 'Authorize this bill, then hand amtPaymentLink to an available official current MachinePay buyer capability. Do not invent a wallet command. Return its proof via execute --proof-stdin.' };
+    return { ...bill, next: 'After authorization use pay for this run with the current session ID and this amtPaymentLink. For an existing pending payment use query.' };
   }
   if (status === 200 && body.kind === 'report') {
     if (!object(body.report) || !['completed', 'failed', 'budget_exhausted'].includes(body.report.status) || typeof body.markdown !== 'string') fail('Service returned an invalid report.');
@@ -176,9 +178,63 @@ async function receive(directory, run, response) {
   fail(`Unexpected service response (HTTP ${status}). Recover this same order; do not buy again.`);
 }
 
+const hashLink = value => createHash('sha256').update(value).digest('hex');
+
+async function wallet(args) {
+  const [command, path, flag, value, linkFlag, link] = args;
+  const directory = resolve(path);
+  const run = await receipt(directory);
+  if (!run.endpoint.startsWith('https://')) fail('Wallet replay requires an HTTPS service.');
+  const marker = join(directory, 'payment-started.json');
+  let operation;
+  if (command === 'pay') {
+    if (args.length !== 6 || flag !== '--session-id' || !text(value, 1024) || !value.trim()
+      || linkFlag !== '--amt-payment-link' || !text(link, 256)) fail(USAGE);
+    const bill = await readJson(join(directory, 'bill.json'), true);
+    const issuedHash = bill.linkHash ?? (text(bill.amtPaymentLink, 256) ? hashLink(bill.amtPaymentLink) : null);
+    if (bill.kind !== 'payment_required' || bill.orderId !== run.orderId || bill.amount !== '0.99' || bill.currency !== 'CNY'
+      || !(Date.parse(bill.payBefore) > Date.now()) || issuedHash !== hashLink(link))
+      fail('Quote does not match this order or has expired. Do not pay.');
+    const target = run.target;
+    const summary = '原始请求：核验 ' + [target.brand, target.productName,
+      target.netQuantity.value + ' ' + target.netQuantity.unit, target.version, target.packageForm].filter(Boolean).join(' ');
+    operation = ['402-buyer-pay', '--session-id', value, '--amt-payment-link', link, '--intent-summary', summary];
+    let handle;
+    try {
+      handle = await open(marker, 'wx', 0o600);
+      await handle.writeFile(JSON.stringify({ orderId: run.orderId }));
+      await handle.sync();
+    } catch (error) {
+      if (error.code === 'EEXIST') fail('Payment already started. Query the original payment or recover this order.');
+      throw error;
+    } finally { await handle?.close(); }
+    await syncDirectory(directory);
+  } else {
+    if (args.length !== 4 || !(flag === '--out-shake-no' && /^\d{10}8282\d{18}$/.test(value)
+      || flag === '--trade-no' && /^[a-zA-Z0-9_.-]{1,128}$/.test(value))) fail(USAGE);
+    if ((await readJson(marker, true)).orderId !== run.orderId) fail('Missing original payment attempt.');
+    operation = ['402-query-payment-status', flag, value];
+  }
+  const replay = ['--resource-url', run.endpoint + '/v1/verify', '--method', 'POST',
+    '--data', JSON.stringify({ orderId: run.orderId, target: run.target }), '--header', 'Content-Type: application/json', '--header', 'X-SKU-Wallet-Replay: 1'];
+  // The wallet supplies Payment-Proof itself. Report recovery credentials stay in this process.
+  const child = spawn('alipay-bot', [...operation, ...replay], { stdio: 'inherit', shell: false });
+  try {
+    process.exitCode = await new Promise((done, reject) => {
+      child.once('error', reject);
+      child.once('close', code => done(code ?? 1));
+    });
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    if (command === 'pay') await unlink(marker);
+    fail('Install the official alipay-payment-skill and make alipay-bot available to the Agent.');
+  }
+}
+
 async function main(args) {
   if (args.length === 1 && ['--help', '-h'].includes(args[0])) { console.log(USAGE); return; }
   const [command, input, output, flag, value] = args;
+  if (['pay', 'query'].includes(command) && input) return wallet(args);
   let directory;
   let run;
   let proof;

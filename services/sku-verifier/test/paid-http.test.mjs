@@ -31,6 +31,21 @@ test('HTTP maps contract, omits bill header on invalid payment, GET only recover
     result = { kind, orderId: request.orderId };
     response = await fetch(`${base}/v1/verify`, options); assert.equal(response.status, status);
   }
+  const walletHeaders = {
+    'content-type': 'application/json', 'Payment-Proof': proofHeader(), 'X-SKU-Wallet-Replay': '1',
+    authorization: `Bearer ${'K'.repeat(43)}`,
+  };
+  for (const [kind, status] of [['report', 200], ['running', 409], ['needs_review', 409]]) {
+    result = { kind, orderId: request.orderId };
+    response = await fetch(`${base}/v1/verify`, { ...options, headers: walletHeaders });
+    assert.equal(response.status, status);
+    assert.equal(calls.at(-1)[1].recoverySecret, undefined);
+    assert.equal(calls.at(-1)[1].paymentProofHeader, walletHeaders['Payment-Proof']);
+  }
+  response = await fetch(`${base}/v1/orders/${request.orderId}`, { headers: { 'X-SKU-Wallet-Replay': '1', 'Payment-Proof': proofHeader() } });
+  assert.equal(response.status, 401);
+  response = await fetch(`${base}/v1/verify`, { ...options, headers: { 'X-SKU-Wallet-Replay': '1', ...options.headers } });
+  assert.equal(response.status, 401);
   fail = new PaidError(402, 'PAYMENT_INVALID');
   response = await fetch(`${base}/v1/verify`, { ...options, headers: { ...options.headers, 'Payment-Proof': proofHeader() } });
   assert.equal(response.status, 402); assert.equal(response.headers.get('amtPaymentLink'), null);

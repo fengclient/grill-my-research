@@ -409,11 +409,40 @@ test('expired quote keeps its receipt and bill without inviting payment, and fin
   assert.equal(savedBill.expired, true);
   assert.equal(savedBill.payBefore, expiredAt);
   assert.equal(savedBill.orderId, JSON.parse(receipt).orderId);
-  assert.equal(savedBill.amtPaymentLink, 'amt-prepay-one');
+  assert.match(savedBill.linkHash, /^[a-f0-9]{64}$/);
+  assert.ok(!JSON.stringify(savedBill).includes('amt-prepay-one'));
   const recovered = await invoke(['recover', f.run]);
   assert.equal(recovered.code, 0, recovered.stderr);
   assert.equal(JSON.parse(recovered.stdout).kind, 'report');
   assert.deepEqual(JSON.parse(await readFile(join(f.run, 'report.json'))), report);
   assert.equal(await readFile(join(f.run, 'receipt.json'), 'utf8'), receipt);
   assert.deepEqual(f.requests.map(req => req.method), ['POST', 'GET']);
+});
+
+test('official wallet starts once, queries the same POST and never receives the recovery secret', async t => {
+  const f = await fixture(t, ({ res, body }) => bill(res, body.orderId));
+  await f.quote();
+  const receiptPath = join(f.run, 'receipt.json');
+  const receipt = JSON.parse(await readFile(receiptPath));
+  receipt.endpoint = 'https://merchant.example';
+  await writeFile(receiptPath, JSON.stringify(receipt));
+  // Record argv at the external CLI boundary without invoking a payment account.
+  const fake = join(f.directory, 'alipay-bot');
+  await writeFile(fake, '#!/usr/bin/env node\nconsole.log(JSON.stringify(process.argv.slice(2)))', { mode: 0o700 });
+  const env = { PATH: f.directory + ':' + process.env.PATH };
+  const pay = ['pay', f.run, '--session-id', 'user-thread', '--amt-payment-link'];
+  assert.equal((await invoke([...pay, 'other-order-link'], '', env)).code, 1);
+  const [one, two] = await Promise.all([1, 2].map(() => invoke([...pay, 'amt-prepay-one'], '', env)));
+  const calls = [one, two].sort((a, b) => a.code - b.code);
+  assert.deepEqual(calls.map(result => result.code), [0, 1]);
+  const query = await invoke(['query', f.run, '--out-shake-no', '12345678908282123456789012345678'], '', env);
+  assert.equal(query.code, 0, query.stderr);
+  for (const [result, command] of [[calls[0], '402-buyer-pay'], [query, '402-query-payment-status']]) {
+    const args = JSON.parse(result.stdout);
+    assert.equal(args[0], command);
+    assert.deepEqual(args.slice(args.indexOf('--resource-url')), ['--resource-url', receipt.endpoint + '/v1/verify',
+      '--method', 'POST', '--data', JSON.stringify({ orderId: receipt.orderId, target }), '--header', 'Content-Type: application/json', '--header', 'X-SKU-Wallet-Replay: 1']);
+    clean(result, receipt.recoverySecret);
+  }
+  assert.equal(f.requests.length, 1);
 });

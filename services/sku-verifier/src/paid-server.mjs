@@ -35,8 +35,11 @@ export function createPaidServer({ service, log = value => console.log(JSON.stri
     try {
       const url = new URL(request.url, 'http://service.local');
       if (url.search) throw new PaidError(400, 'INVALID_REQUEST');
-      const recoverySecret = /^Bearer ([A-Za-z0-9_-]{43})$/.exec(request.headers.authorization ?? '')?.[1];
-      if (!recoverySecret) throw new PaidError(401, 'UNAUTHORIZED');
+      const walletReplay = request.method === 'POST' && url.pathname === '/v1/verify'
+        && request.headers['x-sku-wallet-replay'] === '1';
+      if (walletReplay && request.headers['payment-proof'] === undefined) throw new PaidError(401, 'UNAUTHORIZED');
+      const recoverySecret = walletReplay ? undefined : /^Bearer ([A-Za-z0-9_-]{43})$/.exec(request.headers.authorization ?? '')?.[1];
+      if (!recoverySecret && !walletReplay) throw new PaidError(401, 'UNAUTHORIZED');
       let result;
       const match = /^\/v1\/orders\/([a-f0-9]{32})$/.exec(url.pathname);
       if (request.method === 'GET' && match) {
@@ -57,6 +60,8 @@ export function createPaidServer({ service, log = value => console.log(JSON.stri
         result = await service.request({ orderId: body.orderId, target: body.target, recoverySecret, paymentProofHeader: request.headers['payment-proof'] });
       } else throw new PaidError(404, 'NOT_FOUND');
       const status = { payment_required: 402, report: 200, running: 202, needs_review: 409 }[result.kind];
+      // The official wallet acknowledges a successful nonempty resource response.
+      if (walletReplay && result.kind === 'running') throw new PaidError(409, 'ORDER_RUNNING');
       send(status, result);
     } catch (error) {
       const status = error instanceof PaidError ? error.status : 503;

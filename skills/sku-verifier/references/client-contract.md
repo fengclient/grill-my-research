@@ -9,17 +9,21 @@ Commands, with paths resolved from the caller's working directory:
 ```text
 node <skill-dir>/scripts/client.mjs quote <target.json> <new-run-dir> --endpoint <https-origin>
 node <skill-dir>/scripts/client.mjs quote-again <run-dir>
+node <skill-dir>/scripts/client.mjs pay <run-dir> --session-id <session-id> --amt-payment-link <quoted-value>
+node <skill-dir>/scripts/client.mjs query <run-dir> (--out-shake-no <query-number> | --trade-no <trade-number>)
 node <skill-dir>/scripts/client.mjs execute <run-dir> --proof-stdin
 node <skill-dir>/scripts/client.mjs recover <run-dir>
 ```
 
-`quote` posts `{orderId,target}` to `/v1/verify` with `Authorization: Bearer <recoverySecret>`. `quote-again` explicitly reposts the identical body and bearer without a payment proof to retry creating or retrieving the original bill. It keeps the original orderId and capability and never starts research. A completed order returns its stored report. `execute` posts the identical body and bearer plus `Payment-Proof` from stdin. `recover` only GETs `/v1/orders/<orderId>` with the bearer. No capability travels in a URL. Input JSON and proof are bounded to 64 KiB. Response JSON is bounded to 16 MiB, allowing JSON escaping around the service's separate 2 MiB report and 2 MiB markdown limits. Proof reading times out after 30 seconds. Quote, quote-again, and recovery time out after 30 seconds; execution after 840 seconds, below the platform's 900-second maximum. A shorter actual gateway timeout still requires deployment verification.
+`quote` posts `{orderId,target}` to `/v1/verify` with `Authorization: Bearer <recoverySecret>`. `quote-again` explicitly reposts the identical body and bearer without a payment proof to retry creating or retrieving the original bill. It keeps the original orderId and capability and never starts research. A completed order returns its stored report. `execute` posts the identical body and bearer plus `Payment-Proof` from stdin. `recover` only GETs `/v1/orders/<orderId>` with the bearer. No capability travels in a URL. Input JSON and proof are bounded to 64 KiB. Response JSON is bounded to 16 MiB, allowing JSON escaping around the service's separate 2 MiB report and 2 MiB markdown limits. Proof reading times out after 30 seconds. Quote, quote-again, and recovery time out after 30 seconds; execution after 840 seconds, below the platform's 900-second maximum. The official wallet resource request can time out after 30 seconds. A slow investigation may continue in the cloud. Recover the original order with GET. Unless the wallet reported acknowledgment, its acknowledgment status remains unknown after a recovery GET.
 
-The accepted responses are:
+`pay` checks the order, price, currency, deadline and quoted pre-order ID against private bill metadata. It records the start of the purchase before invoking the official wallet, so a repeated invocation cannot start a second payment. The pre-order ID is compared by digest and passed directly to the wallet. Older private bill files containing the original pre-order ID remain readable. The wallet signs its own proof and replays the original POST with that proof and the business header `X-SKU-Wallet-Replay: 1`. This marker selects verification using the wallet proof even if the wallet adds its own Authorization header. The merchant still verifies the payment before serving the report. `query` passes the same URL, body and content type to the official wallet for a pending payment. Both commands forward the wallet's output. The wallet owns payment proof and acknowledgment. `execute --proof-stdin` remains available for integrations that directly receive a standard Base64 proof. Never copy a proof into chat.
+
+The accepted service responses are:
 
 | HTTP | Body | Consumer action |
 | --- | --- | --- |
-| 402 | `kind: payment_required`, same orderId, amount `0.99`, currency `CNY`, goodsName, payBefore, paymentLink; matching `amtPaymentLink` header | Save `bill.json`, present authorization and hand its amtPaymentLink to the official current buyer capability. |
+| 402 | `kind: payment_required`, same orderId, amount `0.99`, currency `CNY`, goodsName, payBefore, paymentLink; matching `amtPaymentLink` header | Save bill metadata and the digest of the pre-order ID. Present the bill and pass the current response’s amtPaymentLink to pay after authorization. |
 | 200 | `kind: report`, same orderId, report, markdown | Save the report object as `report.json` and exact markdown as `report.md`. Read status and evidence gaps. |
 | 202 | `kind: running`, same orderId, retryAfterSeconds `5` | Recover this run later. No automatic polling occurs. |
 | 409 | `kind: needs_review`, same orderId, reason | Keep receipt and contact the operator with orderId. The CLI exits 3. |
