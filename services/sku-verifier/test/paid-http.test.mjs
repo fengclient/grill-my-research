@@ -46,6 +46,10 @@ test('HTTP maps contract, omits bill header on invalid payment, GET only recover
   assert.equal(response.status, 401);
   response = await fetch(`${base}/v1/verify`, { ...options, headers: { 'X-SKU-Wallet-Replay': '1', ...options.headers } });
   assert.equal(response.status, 401);
+  fail = new PaidError(400, 'INVALID_PAYMENT_PROOF');
+  response = await fetch(`${base}/v1/verify`, { ...options, headers: walletHeaders });
+  assert.equal(response.status, 400);
+  assert.deepEqual(logs.at(-1), { event: 'wallet_replay_rejected', status: 400, error: 'INVALID_PAYMENT_PROOF', orderId: request.orderId });
   fail = new PaidError(402, 'PAYMENT_INVALID');
   response = await fetch(`${base}/v1/verify`, { ...options, headers: { ...options.headers, 'Payment-Proof': proofHeader() } });
   assert.equal(response.status, 402); assert.equal(response.headers.get('amtPaymentLink'), null);

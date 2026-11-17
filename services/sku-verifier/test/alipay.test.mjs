@@ -16,6 +16,22 @@ test('strict bounded Payment-Proof parsing retains only current official fields'
   }
 });
 
+test('decodes the unpadded Base64URL envelope sent by alipay-bot before merchant verification', () => {
+  const fields = { payment_proof: 'b'.repeat(64), trade_no: '7'.repeat(32) };
+  const client_session = Buffer.from(JSON.stringify({ sessionId: 'wallet-session-78' })).toString('base64');
+  const envelope = { method: { client_session }, protocol: fields };
+  const raw = Buffer.from(JSON.stringify(envelope));
+  const header = raw.toString('base64url');
+  assert.notEqual(header, raw.toString('base64'), 'the fixture must exercise the wallet encoding');
+  assert.deepEqual(parsePaymentProof(header), { ...fields, client_session });
+  const urlAlphabet = Buffer.from(JSON.stringify({ ...envelope, extra: '???' })).toString('base64url');
+  assert.match(urlAlphabet, /[-_]/);
+  assert.deepEqual(parsePaymentProof(urlAlphabet), { ...fields, client_session });
+  for (const malformed of [header + '==', header + '.', header + '\n']) {
+    assert.throws(() => parsePaymentProof(malformed), { code: 'INVALID_PAYMENT_PROOF' });
+  }
+});
+
 test('merchant configuration fails closed and selects only official gateways', () => {
   assert.throws(() => createAlipay({ environment: 'production', appId: '123', privateKey: keys.privateKey }));
   assert.throws(() => createAlipay({ environment: 'https://attacker.invalid', appId: '123', privateKey: keys.privateKey, alipayPublicKey: keys.publicKey }));

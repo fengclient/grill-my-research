@@ -9,6 +9,12 @@ import { DeepSeekClient } from './deepseek.mjs';
 import { DeepSeekModel } from './model.mjs';
 import { verifySku } from './verify.mjs';
 
+const walletErrorCodes = new Set([
+  'INVALID_REQUEST', 'UNAUTHORIZED', 'JSON_REQUIRED', 'BODY_TOO_LARGE', 'INVALID_JSON',
+  'INVALID_ORDER_ID', 'INVALID_TARGET', 'INVALID_PAYMENT_PROOF', 'PAYMENT_INVALID',
+  'INSTANCE_BUSY', 'ORDER_RUNNING', 'ORDER_OUTCOME_UNCERTAIN', 'PAYMENT_PROVIDER_UNAVAILABLE',
+]);
+
 export function paidConfig(env = process.env) {
   if (!env.DATABASE_URL || typeof env.DEEPSEEK_API_KEY !== 'string' || !env.DEEPSEEK_API_KEY.trim() || /[\r\n]/.test(env.DEEPSEEK_API_KEY) || !env.ALIPAY_SERVICE_ID) throw Error('DATABASE_URL, DEEPSEEK_API_KEY and ALIPAY_SERVICE_ID are required.');
   const database = new URL(env.DATABASE_URL);
@@ -26,6 +32,8 @@ export function paidConfig(env = process.env) {
 }
 export function createPaidServer({ service, log = value => console.log(JSON.stringify(value)) }) {
   const server = createServer({ maxHeaderSize: 16384 }, async (request, response) => {
+    let walletReplay = false;
+    let orderId;
     const send = (status, value) => {
       if (response.destroyed) return;
       response.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store',
@@ -35,7 +43,7 @@ export function createPaidServer({ service, log = value => console.log(JSON.stri
     try {
       const url = new URL(request.url, 'http://service.local');
       if (url.search) throw new PaidError(400, 'INVALID_REQUEST');
-      const walletReplay = request.method === 'POST' && url.pathname === '/v1/verify'
+      walletReplay = request.method === 'POST' && url.pathname === '/v1/verify'
         && request.headers['x-sku-wallet-replay'] === '1';
       if (walletReplay && request.headers['payment-proof'] === undefined) throw new PaidError(401, 'UNAUTHORIZED');
       const recoverySecret = walletReplay ? undefined : /^Bearer ([A-Za-z0-9_-]{43})$/.exec(request.headers.authorization ?? '')?.[1];
@@ -56,6 +64,7 @@ export function createPaidServer({ service, log = value => console.log(JSON.stri
         let body;
         try { body = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(chunks))); }
         catch { throw new PaidError(400, 'INVALID_JSON'); }
+        if (typeof body?.orderId === 'string' && /^[a-f0-9]{32}$/.test(body.orderId)) orderId = body.orderId;
         if (!body || Array.isArray(body) || Object.keys(body).some(key => !['orderId','target'].includes(key))) throw new PaidError(400, 'INVALID_REQUEST');
         result = await service.request({ orderId: body.orderId, target: body.target, recoverySecret, paymentProofHeader: request.headers['payment-proof'] });
       } else throw new PaidError(404, 'NOT_FOUND');
@@ -65,7 +74,11 @@ export function createPaidServer({ service, log = value => console.log(JSON.stri
       send(status, result);
     } catch (error) {
       const status = error instanceof PaidError ? error.status : 503;
-      if (status === 503) log({ event: 'paid_request_failed', error: 'SERVICE_UNAVAILABLE' });
+      if (walletReplay) {
+        log({ event: 'wallet_replay_rejected', status,
+          error: error instanceof PaidError && walletErrorCodes.has(error.code) ? error.code : 'SERVICE_ERROR',
+          ...(orderId ? { orderId } : {}) });
+      } else if (status === 503) log({ event: 'paid_request_failed', error: 'SERVICE_UNAVAILABLE' });
       send(status, { error: error instanceof PaidError ? error.code : 'SERVICE_UNAVAILABLE' });
     }
   });

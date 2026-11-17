@@ -7,9 +7,10 @@ export class PaidError extends Error {
 export const amountYuan = fen => `${Math.floor(fen / 100)}.${String(fen % 100).padStart(2, '0')}`;
 export function parsePaymentProof(header) {
   try {
-    if (typeof header !== 'string' || header.length > 8192 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(header)) throw Error();
+    if (typeof header !== 'string' || !header.length || header.length > 8192) throw Error();
     const raw = Buffer.from(header, 'base64');
-    if (raw.toString('base64') !== header) throw Error();
+    // alipay-bot sends raw Base64URL; the original proof-stdin client sends standard Base64.
+    if (header !== raw.toString('base64url') && header !== raw.toString('base64')) throw Error();
     const proof = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(raw));
     const { payment_proof: paymentProof, trade_no: tradeNo } = proof.protocol ?? {};
     const clientSession = proof.method?.client_session;
